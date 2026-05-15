@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7 Day Muffler & Auto Repair — OC's Exhaust Specialists | Stanton, CA</title>
+  <meta name="description" content="7 Day Muffler & Auto Repair in Stanton, CA. Custom exhaust, catalytic converters, muffler delete & oil changes. Family owned 35 years. 4.6★ Google · 4.7★ Yelp.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* ── Hero ── */
+    .hero { position: relative; height: 100vh; min-height: 700px; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: url('brand_assets/gallery-pics/fthfth.jpg') center 30% / cover no-repeat; transform: scale(1.06); transition: transform 7s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .hero-bg.zoomed { transform: scale(1); }
+    .hero-ov1 { position: absolute; inset: 0; background: linear-gradient(155deg, rgba(10,10,12,0.9) 0%, rgba(10,10,12,0.5) 45%, rgba(10,10,12,0.8) 100%); }
+    .hero-ov2 { position: absolute; inset: 0; background: radial-gradient(ellipse at 72% 55%, rgba(212,86,26,0.08) 0%, transparent 55%); }
+    .hero-edge { position: absolute; left: 0; top: 15%; bottom: 15%; width: 3px; background: linear-gradient(to bottom, transparent, var(--blue), transparent); }
+    .hero-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; height: 100%; display: flex; align-items: center; }
+    .hero-h1 { font-family: 'Bebas Neue', cursive; font-size: clamp(3.4rem,10.5vw,8.5rem); line-height: 0.88; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .hero-h1 .accent { color: var(--orange); }
+    .hero-sub { font-size: 1.05rem; line-height: 1.75; color: rgba(240,239,232,0.72); max-width: 470px; margin-bottom: 2.5rem; font-weight: 300; }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 3rem; align-items: center; }
+    .badge-divider { width: 1px; height: 2.5rem; background: rgba(255,255,255,0.12); }
+    .badge-icon { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .badge-score { font-family: 'Bebas Neue', cursive; font-size: 1.3rem; color: var(--orange); line-height: 1; }
+    .badge-label { font-size: 0.62rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; font-family: 'Oswald', sans-serif; }
+    .scroll-cue { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.4rem; opacity: 0.45; }
+    .scroll-cue-label { font-family: 'Oswald', sans-serif; font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; }
+    .scroll-line { width: 1px; height: 2.25rem; background: linear-gradient(to bottom, var(--orange), transparent); animation: sc 1.6s ease-in-out infinite; }
+    @keyframes sc { 0%,100%{transform:scaleY(0.6);opacity:0.3} 50%{transform:scaleY(1);opacity:1} }
+
+    /* ── Services preview ── */
+    .svc-preview { padding: 6rem 1.5rem; background: var(--dark); position: relative; overflow: hidden; }
+    .svc-preview-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Bebas Neue', cursive; font-size: clamp(8rem,18vw,20rem); color: rgba(255,255,255,0.018); white-space: nowrap; pointer-events: none; user-select: none; letter-spacing: -0.02em; }
+    .svc-hero-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .svc-hero-card { position: relative; min-height: 300px; border-radius: 6px; overflow: hidden; display: flex; align-items: flex-end; padding: 2.25rem 2rem; cursor: pointer; }
+    .svc-hero-card .img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .svc-hero-card:hover .img-bg { transform: scale(1.06); }
+    .svc-hero-card::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 55%, rgba(0,0,0,0.1) 100%); transition: background 0.4s ease; }
+    .svc-hero-card:hover::before { background: linear-gradient(to top, rgba(180,55,10,0.88) 0%, rgba(0,0,0,0.42) 55%, rgba(0,0,0,0.1) 100%); }
+    .svc-hero-content { position: relative; z-index: 2; }
+    .svc-hero-tag { display: inline-flex; align-items: center; gap: 0.35rem; background: var(--orange); color: #fff; font-family: 'Oswald', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.3rem 0.875rem; border-radius: 0; margin-bottom: 1rem; }
+    .svc-hero-title { font-family: 'Bebas Neue', cursive; font-size: clamp(2rem,3.5vw,2.75rem); line-height: 0.9; color: #fff; margin-bottom: 0.625rem; letter-spacing: 0.01em; }
+    .svc-hero-desc { font-size: 0.875rem; color: rgba(255,255,255,0.7); line-height: 1.6; max-width: 340px; }
+
+    /* ── Reviews preview ── */
+    .reviews-preview { padding: 6rem 1.5rem; background: var(--surface); }
+    .r-card { background: var(--elevated); border: 1px solid var(--border); border-radius: 4px; padding: 1.875rem; position: relative; overflow: hidden; transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease; }
+    .r-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--orange), var(--blue)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; opacity: 0; }
+    .r-card:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0,0,0,0.4); }
+    .r-card:hover::before { transform: scaleX(1); opacity: 1; }
+    .r-stars { color: var(--orange); font-size: 0.75rem; letter-spacing: 0.08em; margin-bottom: 0.875rem; }
+    /* Playfair italic for the actual review quote text — a subtle, elegant touch */
+    .r-quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.9rem; line-height: 1.78; color: rgba(240,239,232,0.82); margin-bottom: 1.25rem; }
+    .r-footer-row { display: flex; align-items: center; gap: 0.75rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .r-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--steel); display: flex; align-items: center; justify-content: center; font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 500; flex-shrink: 0; color: var(--orange); border: 1px solid rgba(212,86,26,0.3); }
+    .r-name { font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 500; }
+    .r-service { font-size: 0.68rem; color: var(--muted); margin-top: 0.1rem; }
+
+    /* ── Contact strip ── */
+    .contact-strip { background: var(--steel); padding: 4rem 1.5rem; }
+    .cs-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; }
+    .cs-phone { font-family: 'Bebas Neue', cursive; font-size: clamp(2rem,5vw,3.5rem); color: var(--orange); text-decoration: none; letter-spacing: 0.04em; transition: opacity 0.18s ease; display: block; }
+    .cs-phone:hover { opacity: 0.78; }
+    .cs-addr { font-size: 0.9rem; color: var(--muted); margin-top: 0.4rem; }
+    .cs-hours { display: grid; grid-template-columns: repeat(2,auto); gap: 0.25rem 2rem; }
+    .cs-hr { font-size: 0.8rem; color: var(--muted); }
+    .cs-hr span { color: var(--text); margin-left: 0.5rem; }
+
+    @media (max-width: 900px) {
+      .svc-hero-grid { grid-template-columns: 1fr; }
+      .cs-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .reviews-grid-3 { grid-template-columns: 1fr !important; }
+    }
+
+    /* ── Hero entrance stagger ── */
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(36px); filter: blur(5px); }
+      to   { opacity: 1; transform: none; filter: none; }
+    }
+    .hero-content .label  { animation: heroIn 0.85s cubic-bezier(0.22,1,0.36,1) 0.25s both; }
+    .hero-h1              { animation: heroIn 0.9s  cubic-bezier(0.22,1,0.36,1) 0.45s both; }
+    .hero-sub             { animation: heroIn 0.85s cubic-bezier(0.22,1,0.36,1) 0.7s  both; }
+    .hero-cta             { animation: heroIn 0.85s cubic-bezier(0.22,1,0.36,1) 0.88s both; }
+    .hero-badges          { animation: heroIn 0.85s cubic-bezier(0.22,1,0.36,1) 1.05s both; }
+    .scroll-cue           { animation: heroIn 1s    cubic-bezier(0.22,1,0.36,1) 1.3s  both; }
+
+    /* ── Hero edge pulse ── */
+    @keyframes edgePulse {
+      0%,100% { opacity: 0.35; }
+      50%     { opacity: 1; }
+    }
+    .hero-edge { animation: edgePulse 3s ease-in-out infinite; }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="cursor-glow"></div>
+<div id="float-cta">
+  <a href="tel:7142201466" aria-label="Call 7 Day Muffler">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+    Call Now
+  </a>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" style="display:flex;align-items:center;text-decoration:none;flex-shrink:0;" aria-label="7 Day Muffler Home">
+      <img src="brand_assets/gallery-pics/7daylogomuffler-removebg-preview.png" alt="7 Day Muffler & Auto Repair" class="nav-logo">
+    </a>
+    <nav class="nav-links" aria-label="Site sections">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:0.875rem;">
+      <a href="tel:7142201466" class="btn-o" style="font-size:0.78rem;padding:0.65rem 1.2rem;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        (714) 220-1466
+      </a>
+      <button id="ham" aria-label="Toggle menu" aria-expanded="false" style="background:none;border:none;color:var(--text);cursor:pointer;padding:6px;display:none;">
+        <svg id="ham-open" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        <svg id="ham-close" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mob-menu" role="menu">
+    <a href="index.html" role="menuitem">Home</a>
+    <a href="about.html" role="menuitem">About Us</a>
+    <a href="services.html" role="menuitem">Services</a>
+    <a href="contact.html" role="menuitem">Contact</a>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-bg" id="hero-bg"></div>
+  <div class="hero-ov1"></div>
+  <div class="hero-ov2"></div>
+  <div class="hero-edge"></div>
+  <div class="hero-content">
+    <div>
+      <div class="label" style="margin-bottom:1.375rem;">Family Owned · 35 Years · Stanton, CA</div>
+      <h1 class="hero-h1">OC'S EXHAUST<br><span class="accent">SPECIALISTS</span></h1>
+      <p class="hero-sub">Custom exhaust, catalytic converters &amp; more. Raffi &amp; Peter have served Orange County for 35 years — fast turnaround, honest pricing, exceptional results.</p>
+      <div class="hero-cta" style="display:flex;flex-wrap:wrap;gap:0.875rem;">
+        <a href="tel:7142201466" class="btn-o">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          Call Now — Free Quote
+        </a>
+        <a href="services.html" class="btn-gh">View Services</a>
+      </div>
+      <div class="hero-badges">
+        <div style="display:flex;align-items:center;gap:0.5rem;">
+          <div class="badge-icon" style="background:#4285F4;"><svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z"/></svg></div>
+          <div><div class="badge-score">4.6 ★</div><div class="badge-label">Google · 77 Reviews</div></div>
+        </div>
+        <div class="badge-divider"></div>
+        <div style="display:flex;align-items:center;gap:0.5rem;">
+          <div class="badge-icon" style="background:#C41200;"><svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M12 2L9.1 9H2l5.6 4.1L5.3 20l6.7-4.9 6.7 4.9-2.3-6.9L22 9h-7.1z"/></svg></div>
+          <div><div class="badge-score">4.7 ★</div><div class="badge-label">Yelp · 78 Reviews</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true"><span class="scroll-cue-label">Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- ═══════════════ MARQUEE ═══════════════ -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="mq-item">Custom Exhaust</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Catalytic Converters</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Muffler Delete</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Resonator Delete</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Oil Changes</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Exhaust Leak Repair</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Family Owned 35 Years</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Fast Turnaround</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Stanton, CA</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Custom Exhaust</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Catalytic Converters</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Muffler Delete</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Resonator Delete</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Oil Changes</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Exhaust Leak Repair</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Family Owned 35 Years</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Fast Turnaround</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Stanton, CA</span><span class="mq-item mq-dot">·</span>
+  </div>
+</div>
+
+<!-- ═══════════════ STATS ═══════════════ -->
+<div class="stats-bar">
+  <div class="stats-grid">
+    <div class="stat-cell reveal" data-a="scale"><span class="stat-num" data-count="35">0</span><div class="stat-desc">Years Family Owned</div></div>
+    <div class="stat-cell reveal" data-a="scale"><span class="stat-num">4.6★</span><div class="stat-desc">Google Rating</div></div>
+    <div class="stat-cell reveal" data-a="scale"><span class="stat-num" data-count="155">0</span><div class="stat-desc">5-Star Reviews</div></div>
+    <div class="stat-cell reveal" data-a="scale"><span class="stat-num" data-count="6">0</span><div class="stat-desc">Days a Week</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════ SERVICES PREVIEW ═══════════════ -->
+<section class="svc-preview">
+  <div class="svc-preview-watermark" aria-hidden="true">SERVICES</div>
+  <div style="max-width:1200px;margin:0 auto 3rem;text-align:center;" class="reveal" data-a="blur">
+    <div class="label" style="justify-content:center;">What We Offer</div>
+    <h2 style="font-family:'Bebas Neue',cursive;font-size:clamp(3rem,8vw,6rem);line-height:0.88;letter-spacing:-0.02em;">OUR <span style="color:var(--orange);">SERVICES</span></h2>
+    <div style="width:4rem;height:3px;background:linear-gradient(90deg,var(--orange),var(--blue));margin:1rem auto 1.25rem;border-radius:2px;"></div>
+    <p style="color:var(--muted);font-size:1rem;max-width:500px;margin:0 auto;font-weight:300;line-height:1.7;">From catalytic converters to full custom builds — if it involves exhaust, we've got it covered.</p>
+  </div>
+  <div class="svc-hero-grid">
+    <div class="svc-hero-card reveal" data-a="left">
+      <div class="img-bg" style="background-image:url('brand_assets/gallery-pics/drtgrdg.jpg');"></div>
+      <div class="svc-hero-content">
+        <div class="svc-hero-tag">01 — Most Requested</div>
+        <div class="svc-hero-title">Catalytic Converter<br>Replacement</div>
+        <div class="svc-hero-desc">CA CARB-compliant. Nissan, Toyota, BMW, Prius &amp; more.</div>
+      </div>
+    </div>
+    <div class="svc-hero-card reveal" data-a="right">
+      <div class="img-bg" style="background-image:url('brand_assets/gallery-pics/fthfth.jpg');"></div>
+      <div class="svc-hero-content">
+        <div class="svc-hero-tag">02 — We Specialize In This</div>
+        <div class="svc-hero-title">Custom Exhaust<br>Installation</div>
+        <div class="svc-hero-desc">Cat-back, axle-back, full fabrication. Every weld done right.</div>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:2.5rem auto 0;text-align:center;">
+    <a href="services.html" class="btn-o" style="font-size:0.9rem;padding:0.9rem 2.5rem;">View All 6 Services →</a>
+  </div>
+</section>
+
+<!-- ═══════════════ REVIEWS PREVIEW ═══════════════ -->
+<section class="reviews-preview">
+  <div style="max-width:1200px;margin:0 auto 3rem;text-align:center;" class="reveal">
+    <div class="label" style="justify-content:center;">What Customers Say</div>
+    <h2 style="font-family:'Bebas Neue',cursive;font-size:clamp(2.5rem,6vw,4.5rem);line-height:0.93;letter-spacing:-0.01em;">HONEST WORK, <span style="color:var(--orange);">HAPPY CUSTOMERS</span></h2>
+    <div style="display:flex;justify-content:center;gap:2.5rem;margin-top:1.5rem;flex-wrap:wrap;align-items:center;">
+      <div style="text-align:center;"><div style="font-family:'Bebas Neue',cursive;font-size:2.5rem;color:var(--orange);line-height:1;">4.6 ★</div><div style="font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);">77 Google Reviews</div></div>
+      <div style="width:1px;height:2.5rem;background:rgba(255,255,255,0.08);"></div>
+      <div style="text-align:center;"><div style="font-family:'Bebas Neue',cursive;font-size:2.5rem;color:var(--orange);line-height:1;">4.7 ★</div><div style="font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);">78 Yelp Reviews</div></div>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;" class="reviews-grid-3">
+    <div class="r-card reveal" data-a="left">
+      <div class="r-stars">★★★★★</div>
+      <p class="r-quote">"They charged me what they quoted me on the phone and got the job done fast! Great attitudes and vibes from all the guys. Highly recommend."</p>
+      <div class="r-footer-row"><div class="r-avatar">E</div><div><div class="r-name">Erick</div><div class="r-service">Local Guide · STI Invidia R400 install</div></div></div>
+    </div>
+    <div class="r-card reveal">
+      <div class="r-stars">★★★★★</div>
+      <p class="r-quote">"Very affordable price and put a new CA CARB catalytic converter on my Nissan Versa in less than 2 hours! I am happy."</p>
+      <div class="r-footer-row"><div class="r-avatar">L</div><div><div class="r-name">Lucas Cruz</div><div class="r-service">Catalytic Converter · Nissan Versa</div></div></div>
+    </div>
+    <div class="r-card reveal" data-a="right">
+      <div class="r-stars">★★★★★</div>
+      <p class="r-quote">"From the moment I called, they were friendly and quick to schedule. Had me in and out faster than expected. This shop respects your time."</p>
+      <div class="r-footer-row"><div class="r-avatar">K</div><div><div class="r-name">Kevin Harms</div><div class="r-service">Resonator Delete</div></div></div>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:2.5rem auto 0;text-align:center;">
+    <a href="about.html#reviews" class="btn-gh">Read More Reviews →</a>
+  </div>
+</section>
+
+<!-- ═══════════════ CONTACT STRIP ═══════════════ -->
+<section class="contact-strip">
+  <div class="cs-inner reveal">
+    <div>
+      <div class="label">Reach Us</div>
+      <a href="tel:7142201466" class="cs-phone">(714) 220-1466</a>
+      <div class="cs-addr">8032 Main St, Stanton, CA 90680</div>
+      <div style="display:flex;gap:0.75rem;margin-top:1.25rem;flex-wrap:wrap;">
+        <a href="contact.html" class="btn-o">Get Directions &amp; Hours</a>
+        <a href="https://maps.google.com/?q=7+Day+Muffler+8032+Main+St+Stanton+CA" target="_blank" rel="noopener" class="btn-gh">Google Maps</a>
+      </div>
+    </div>
+    <div class="cs-hours">
+      <div class="cs-hr">Mon–Fri<span>8 AM – 6 PM</span></div>
+      <div class="cs-hr">Saturday<span>8 AM – 4 PM</span></div>
+      <div class="cs-hr">Sunday<span style="color:#f87171;">Closed</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div><div class="footer-brand">7 Day Muffler &amp; Auto Repair</div><div class="footer-addr">8032 Main St, Stanton, CA 90680 · (714) 220-1466</div></div>
+    <div class="footer-links">
+      <a href="about.html">About Us</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+      <a href="https://www.instagram.com/oc_exhaust_specialists" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.yelp.com/biz/7-day-muffler-and-auto-repair-stanton" target="_blank" rel="noopener">Yelp</a>
+    </div>
+    <div class="footer-copy">© 2025 7 Day Muffler &amp; Auto Repair. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  const heroBg = document.getElementById('hero-bg');
+  window.addEventListener('load', () => {
+    if (heroBg) heroBg.classList.add('zoomed');
+  });
+  /* Hero parallax via background-position (no transform conflict with zoom CSS) */
+  window.addEventListener('scroll', () => {
+    if (heroBg && window.scrollY < window.innerHeight * 1.2) {
+      heroBg.style.backgroundPositionY = `calc(30% + ${window.scrollY * 0.38}px)`;
+    }
+  }, { passive: true });
+
+  const ham = document.getElementById('ham'), menu = document.getElementById('mob-menu');
+  const hamOpen = document.getElementById('ham-open'), hamClose = document.getElementById('ham-close');
+  let menuOpen = false;
+  ham.addEventListener('click', () => {
+    menuOpen = !menuOpen; ham.setAttribute('aria-expanded', menuOpen);
+    menu.classList.toggle('open', menuOpen);
+    hamOpen.style.display = menuOpen ? 'none' : ''; hamClose.style.display = menuOpen ? '' : 'none';
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menuOpen = false; ham.setAttribute('aria-expanded', false);
+    menu.classList.remove('open'); hamOpen.style.display = ''; hamClose.style.display = 'none';
+  }));
+
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 70), { passive: true });
+
+  /* Float CTA visibility */
+  const floatCta = document.getElementById('float-cta');
+  window.addEventListener('scroll', () => {
+    if (floatCta) floatCta.classList.toggle('visible', window.scrollY > 420);
+  }, { passive: true });
+
+  /* Scroll progress bar */
+  const progressBar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+    progressBar.style.width = (pct * 100) + '%';
+  }, { passive: true });
+
+  /* Cursor glow */
+  const glow = document.getElementById('cursor-glow');
+  let glowVisible = false;
+  document.addEventListener('mousemove', (e) => {
+    glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px';
+    if (!glowVisible) { glow.style.opacity = '1'; glowVisible = true; }
+  }, { passive: true });
+  document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; glowVisible = false; });
+
+  /* Scroll reveal */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('in'), parseFloat(e.target.dataset.delay||0)); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    const siblings = Array.from(el.parentElement.querySelectorAll(':scope > .reveal'));
+    el.dataset.delay = siblings.indexOf(el) * 90; io.observe(el);
+  });
+
+  /* 3D card tilt */
+  const addTilt = (selector, deg) => {
+    document.querySelectorAll(selector).forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width - 0.5) * deg;
+        const y = ((e.clientY - r.top) / r.height - 0.5) * -deg;
+        card.style.transform = `perspective(700px) rotateY(${x}deg) rotateX(${y}deg) translateY(-5px)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+  };
+  addTilt('.r-card', 7);
+  addTilt('.svc-hero-card', 9);
+
+  /* Counter animation */
+  const co = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (!e.isIntersecting) return; const el = e.target, t = parseInt(el.dataset.count); if (isNaN(t)) return; let s = 0; const step = ts => { if (!s) s = ts; const p = Math.min((ts-s)/1400,1), ea = 1-Math.pow(1-p,3); el.textContent = Math.round(ea*t)+(t===155?'+':''); if (p<1) requestAnimationFrame(step); else el.classList.add('counted'); }; requestAnimationFrame(step); co.unobserve(el); });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-count]').forEach(el => co.observe(el));
+</script>
+</body>
+</html>

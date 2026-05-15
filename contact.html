@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact & Hours — 7 Day Muffler & Auto Repair | Stanton, CA</title>
+  <meta name="description" content="Visit 7 Day Muffler at 8032 Main St, Stanton, CA 90680. Call (714) 220-1466. Open Mon–Fri 8AM–6PM, Sat 8AM–4PM.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* ── Contact layout ── */
+    .contact-section { padding: 6rem 1.5rem; background: var(--dark); }
+    .contact-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+
+    /* ── Info column ── */
+    .contact-headline { font-family: 'Bebas Neue', cursive; font-size: clamp(2.8rem,6vw,4.5rem); line-height: 0.9; letter-spacing: -0.01em; margin-bottom: 2rem; }
+    .contact-headline span { color: var(--orange); }
+    .contact-info-block { margin-bottom: 2.25rem; }
+    .contact-info-block-label { font-family: 'Oswald', sans-serif; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem; }
+    .contact-info-block-label::before { content: ''; display: block; width: 1.25rem; height: 2px; background: var(--orange); flex-shrink: 0; }
+    .contact-phone-link { font-family: 'Bebas Neue', cursive; font-size: clamp(2.2rem,5vw,3.2rem); color: var(--orange); text-decoration: none; letter-spacing: 0.04em; transition: opacity 0.18s ease; display: block; line-height: 1; }
+    .contact-phone-link:hover { opacity: 0.75; }
+    .contact-addr-text { font-size: 0.975rem; color: rgba(240,239,232,0.7); line-height: 1.6; }
+    .contact-map-links { display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }
+
+    /* ── Hours table ── */
+    .hours-table { width: 100%; border-collapse: collapse; }
+    .hours-table tr { border-bottom: 1px solid var(--border); }
+    .hours-table tr:last-child { border-bottom: none; }
+    .hours-table td { padding: 0.7rem 0; font-size: 0.875rem; }
+    .hours-table .day { color: var(--muted); font-family: 'Oswald', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .hours-table .time { text-align: right; color: var(--text); font-weight: 500; }
+    .hours-table .closed { color: #f87171; }
+    .hours-today { background: rgba(212,86,26,0.08); border-radius: 4px; }
+    .hours-today .day, .hours-today .time { color: var(--orange) !important; }
+
+    /* ── Shop photo ── */
+    .contact-photo { width: 100%; border-radius: 6px; object-fit: cover; aspect-ratio: 16/10; display: block; margin-top: 2rem; }
+
+    /* ── Map column ── */
+    .map-wrap { width: 100%; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); position: relative; }
+    .map-wrap iframe { width: 100%; height: 440px; display: block; border: none; filter: grayscale(30%) contrast(1.05); }
+
+    /* ── CTA block ── */
+    .contact-cta { background: var(--steel); padding: 4.5rem 1.5rem; position: relative; overflow: hidden; }
+    .contact-cta::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--orange), var(--blue), transparent); }
+    .contact-cta-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; }
+    .contact-cta-title { font-family: 'Bebas Neue', cursive; font-size: clamp(2rem,5vw,3.5rem); line-height: 0.9; letter-spacing: -0.01em; margin-bottom: 0.75rem; }
+    .contact-cta-title span { color: var(--orange); }
+    .contact-cta-sub { color: rgba(240,239,232,0.6); font-size: 0.95rem; font-weight: 300; line-height: 1.65; max-width: 420px; }
+    .contact-cta-btns { display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-end; }
+
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-cta-inner { grid-template-columns: 1fr; }
+      .contact-cta-btns { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="cursor-glow"></div>
+<div id="float-cta">
+  <a href="tel:7142201466" aria-label="Call 7 Day Muffler">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+    Call Now
+  </a>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" style="display:flex;align-items:center;text-decoration:none;flex-shrink:0;" aria-label="7 Day Muffler Home">
+      <img src="brand_assets/gallery-pics/7daylogomuffler-removebg-preview.png" alt="7 Day Muffler & Auto Repair" class="nav-logo">
+    </a>
+    <nav class="nav-links" aria-label="Site sections">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:0.875rem;">
+      <a href="tel:7142201466" class="btn-o" style="font-size:0.78rem;padding:0.65rem 1.2rem;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        (714) 220-1466
+      </a>
+      <button id="ham" aria-label="Toggle menu" aria-expanded="false" style="background:none;border:none;color:var(--text);cursor:pointer;padding:6px;display:none;">
+        <svg id="ham-open" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        <svg id="ham-close" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mob-menu" role="menu">
+    <a href="index.html" role="menuitem">Home</a>
+    <a href="about.html" role="menuitem">About Us</a>
+    <a href="services.html" role="menuitem">Services</a>
+    <a href="contact.html" role="menuitem">Contact</a>
+  </div>
+</nav>
+
+<!-- ═══════════════ PAGE HERO ═══════════════ -->
+<header class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('brand_assets/gallery-pics/yhhhhh.jpg');"></div>
+  <div class="page-hero-content">
+    <div class="label">Find Us</div>
+    <h1 class="page-hero-title">CONTACT<br><span>&amp; HOURS</span></h1>
+    <p class="page-hero-sub">Visit us at 8032 Main St, Stanton, CA — call ahead for a free quote.</p>
+  </div>
+</header>
+
+<!-- ═══════════════ MARQUEE ═══════════════ -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="mq-item">Mon–Fri: 8 AM – 6 PM</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Saturday: 8 AM – 4 PM</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Sunday: Closed</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">(714) 220-1466</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">8032 Main St, Stanton CA</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Free Quotes</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Same-Day Service</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Mon–Fri: 8 AM – 6 PM</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Saturday: 8 AM – 4 PM</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Sunday: Closed</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">(714) 220-1466</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">8032 Main St, Stanton CA</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Free Quotes</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Same-Day Service</span><span class="mq-item mq-dot">·</span>
+  </div>
+</div>
+
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<section class="contact-section">
+  <div class="contact-grid">
+
+    <!-- Info column -->
+    <div class="reveal" data-a="left">
+      <div class="label">Reach Us</div>
+      <h2 class="contact-headline">COME SEE<br>US <span>TODAY</span></h2>
+
+      <div class="contact-info-block">
+        <div class="contact-info-block-label">Phone</div>
+        <a href="tel:7142201466" class="contact-phone-link">(714) 220-1466</a>
+        <p style="font-size:0.82rem;color:var(--muted);margin-top:0.4rem;">Call for a free quote — most exhaust jobs done same day</p>
+      </div>
+
+      <div class="contact-info-block">
+        <div class="contact-info-block-label">Address</div>
+        <p class="contact-addr-text">8032 Main St<br>Stanton, CA 90680</p>
+        <div class="contact-map-links">
+          <a href="https://maps.google.com/?q=7+Day+Muffler+8032+Main+St+Stanton+CA" target="_blank" rel="noopener" class="btn-o" style="font-size:0.78rem;padding:0.6rem 1.2rem;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            Google Maps
+          </a>
+          <a href="https://www.yelp.com/biz/7-day-muffler-and-auto-repair-stanton" target="_blank" rel="noopener" class="btn-gh" style="font-size:0.78rem;padding:0.6rem 1.2rem;">Yelp Page</a>
+        </div>
+      </div>
+
+      <div class="contact-info-block">
+        <div class="contact-info-block-label">Hours of Operation</div>
+        <table class="hours-table" id="hours-table">
+          <tbody>
+            <tr data-day="1"><td class="day">Monday</td><td class="time">8:00 AM – 6:00 PM</td></tr>
+            <tr data-day="2"><td class="day">Tuesday</td><td class="time">8:00 AM – 6:00 PM</td></tr>
+            <tr data-day="3"><td class="day">Wednesday</td><td class="time">8:00 AM – 6:00 PM</td></tr>
+            <tr data-day="4"><td class="day">Thursday</td><td class="time">8:00 AM – 6:00 PM</td></tr>
+            <tr data-day="5"><td class="day">Friday</td><td class="time">8:00 AM – 6:00 PM</td></tr>
+            <tr data-day="6"><td class="day">Saturday</td><td class="time">8:00 AM – 4:00 PM</td></tr>
+            <tr data-day="0"><td class="day">Sunday</td><td class="time closed">Closed</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <img src="brand_assets/gallery-pics/display.jpg" alt="7 Day Muffler shop front" class="contact-photo">
+    </div>
+
+    <!-- Map column -->
+    <div class="reveal" data-a="right">
+      <div class="label">Location</div>
+      <h3 style="font-family:'Bebas Neue',cursive;font-size:clamp(1.8rem,4vw,3rem);line-height:0.92;letter-spacing:-0.01em;margin-bottom:1.5rem;">8032 MAIN ST<br><span style="color:var(--orange);">STANTON, CA</span></h3>
+      <div class="map-wrap">
+        <iframe
+          src="https://maps.google.com/maps?q=7+Day+Muffler+%268032+Main+St,+Stanton,+CA+90680&output=embed"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="7 Day Muffler & Auto Repair location on Google Maps"
+        ></iframe>
+      </div>
+      <div style="margin-top:1.5rem;background:var(--elevated);border:1px solid var(--border);border-radius:6px;padding:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div style="text-align:center;">
+          <div style="font-family:'Bebas Neue',cursive;font-size:2rem;color:var(--orange);line-height:1;">4.6★</div>
+          <div style="font-family:'Oswald',sans-serif;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-top:0.2rem;">Google · 77 Reviews</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:'Bebas Neue',cursive;font-size:2rem;color:var(--orange);line-height:1;">4.7★</div>
+          <div style="font-family:'Oswald',sans-serif;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-top:0.2rem;">Yelp · 78 Reviews</div>
+        </div>
+      </div>
+      <div style="margin-top:1rem;background:rgba(212,86,26,0.07);border:1px solid rgba(212,86,26,0.18);border-radius:6px;padding:1.25rem 1.5rem;">
+        <div style="font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--orange);margin-bottom:0.5rem;">Pro Tip</div>
+        <p style="font-size:0.85rem;color:rgba(240,239,232,0.7);line-height:1.6;font-weight:300;">Call ahead to confirm availability for same-day service. Walk-ins welcome, but a quick call means less wait.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ CTA ═══════════════ -->
+<section class="contact-cta">
+  <div class="contact-cta-inner reveal">
+    <div>
+      <h2 class="contact-cta-title">READY TO <span>BOOK?</span></h2>
+      <p class="contact-cta-sub">Give us a call or stop by the shop. We'll give you an honest estimate on the spot — no pressure, no surprises.</p>
+    </div>
+    <div class="contact-cta-btns">
+      <a href="tel:7142201466" class="btn-o">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        Call Us Now
+      </a>
+      <a href="services.html" class="btn-gh">See All Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div><div class="footer-brand">7 Day Muffler &amp; Auto Repair</div><div class="footer-addr">8032 Main St, Stanton, CA 90680 · (714) 220-1466</div></div>
+    <div class="footer-links">
+      <a href="about.html">About Us</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+      <a href="https://www.yelp.com/biz/7-day-muffler-and-auto-repair-stanton" target="_blank" rel="noopener">Yelp</a>
+    </div>
+    <div class="footer-copy">© 2025 7 Day Muffler &amp; Auto Repair. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  const ham = document.getElementById('ham'), menu = document.getElementById('mob-menu');
+  const hamOpen = document.getElementById('ham-open'), hamClose = document.getElementById('ham-close');
+  let menuOpen = false;
+  ham.addEventListener('click', () => {
+    menuOpen = !menuOpen; ham.setAttribute('aria-expanded', menuOpen);
+    menu.classList.toggle('open', menuOpen);
+    hamOpen.style.display = menuOpen ? 'none' : ''; hamClose.style.display = menuOpen ? '' : 'none';
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menuOpen = false; ham.setAttribute('aria-expanded', false);
+    menu.classList.remove('open'); hamOpen.style.display = ''; hamClose.style.display = 'none';
+  }));
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 70), { passive: true });
+
+  const floatCta = document.getElementById('float-cta');
+  window.addEventListener('scroll', () => {
+    if (floatCta) floatCta.classList.toggle('visible', window.scrollY > 300);
+  }, { passive: true });
+
+  const progressBar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+    progressBar.style.width = (pct * 100) + '%';
+  }, { passive: true });
+
+  const glow = document.getElementById('cursor-glow');
+  let glowVisible = false;
+  document.addEventListener('mousemove', (e) => {
+    glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px';
+    if (!glowVisible) { glow.style.opacity = '1'; glowVisible = true; }
+  }, { passive: true });
+  document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; glowVisible = false; });
+
+  /* Highlight today's hours row */
+  const today = new Date().getDay();
+  const todayRow = document.querySelector(`#hours-table tr[data-day="${today}"]`);
+  if (todayRow) todayRow.classList.add('hours-today');
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('in'), parseFloat(e.target.dataset.delay||0)); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach((el) => {
+    const siblings = Array.from(el.parentElement.querySelectorAll(':scope > .reveal'));
+    el.dataset.delay = siblings.indexOf(el) * 90; io.observe(el);
+  });
+</script>
+</body>
+</html>

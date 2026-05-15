@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — 7 Day Muffler & Auto Repair | Stanton, CA</title>
+  <meta name="description" content="Exhaust specialists in Stanton, CA. Catalytic converter replacement, custom exhaust, muffler delete, resonator delete, oil changes & more. Family owned 35 years.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* ── Services hero cards ── */
+    .svc-section { padding: 6rem 1.5rem; background: var(--dark); position: relative; overflow: hidden; }
+    .svc-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Bebas Neue', cursive; font-size: clamp(8rem,18vw,22rem); color: rgba(255,255,255,0.016); white-space: nowrap; pointer-events: none; user-select: none; letter-spacing: -0.02em; }
+    .svc-hero-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .svc-hero-card { position: relative; min-height: 340px; border-radius: 6px; overflow: hidden; display: flex; align-items: flex-end; padding: 2.25rem 2rem; cursor: pointer; }
+    .svc-hero-card .img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .svc-hero-card:hover .img-bg { transform: scale(1.06); }
+    .svc-hero-card::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 55%, rgba(0,0,0,0.1) 100%); transition: background 0.4s ease; }
+    .svc-hero-card:hover::before { background: linear-gradient(to top, rgba(180,55,10,0.88) 0%, rgba(0,0,0,0.42) 55%, rgba(0,0,0,0.1) 100%); }
+    .svc-hero-content { position: relative; z-index: 2; }
+    .svc-hero-tag { display: inline-flex; align-items: center; gap: 0.35rem; background: var(--orange); color: #fff; font-family: 'Oswald', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.3rem 0.875rem; border-radius: 0; margin-bottom: 1rem; }
+    .svc-hero-title { font-family: 'Bebas Neue', cursive; font-size: clamp(2rem,3.5vw,2.75rem); line-height: 0.9; color: #fff; margin-bottom: 0.625rem; letter-spacing: 0.01em; }
+    .svc-hero-desc { font-size: 0.875rem; color: rgba(255,255,255,0.7); line-height: 1.6; max-width: 340px; }
+
+    /* ── Feature cards ── */
+    .svc-feat-grid { max-width: 1200px; margin: 8px auto 0; display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+    .svc-feat-card { background: var(--elevated); border: 1px solid var(--border); border-radius: 6px; padding: 2.25rem 1.875rem 2rem; position: relative; overflow: hidden; cursor: default; transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease, border-color 0.22s ease; }
+    .svc-feat-card:hover { transform: translateY(-5px); box-shadow: 0 24px 52px rgba(0,0,0,0.45); border-color: rgba(212,86,26,0.28); }
+    .svc-feat-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; transform: scaleX(0); transform-origin: left; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+    .svc-feat-card:nth-child(odd)::after { background: var(--orange); }
+    .svc-feat-card:nth-child(even)::after { background: var(--blue); }
+    .svc-feat-card:hover::after { transform: scaleX(1); }
+    .svc-feat-icon { width: 76px; height: 76px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1); }
+    .svc-feat-card:hover .svc-feat-icon { transform: scale(1.1) rotate(-4deg); }
+    .svc-feat-icon svg { width: 36px; height: 36px; }
+    .svc-feat-title { font-family: 'Bebas Neue', cursive; font-size: 1.7rem; line-height: 1; letter-spacing: 0.02em; margin-bottom: 0.625rem; color: var(--text); }
+    .svc-feat-desc { font-size: 0.85rem; line-height: 1.72; color: rgba(240,239,232,0.62); font-weight: 300; }
+
+    /* ── Specialty pills section ── */
+    .svc-brands { padding: 4rem 1.5rem; background: var(--surface); }
+    .svc-brands-inner { max-width: 1200px; margin: 0 auto; }
+
+    /* ── CTA strip ── */
+    .svc-cta { background: var(--orange); padding: 4.5rem 1.5rem; text-align: center; position: relative; overflow: hidden; }
+    .svc-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%); pointer-events: none; }
+    .svc-cta-title { font-family: 'Bebas Neue', cursive; font-size: clamp(2.5rem,6vw,4.5rem); line-height: 0.88; letter-spacing: -0.01em; color: #fff; margin-bottom: 1rem; }
+    .svc-cta-sub { font-size: 1rem; color: rgba(255,255,255,0.78); max-width: 460px; margin: 0 auto 2rem; font-weight: 300; line-height: 1.7; }
+    .btn-white { display: inline-flex; align-items: center; gap: 0.45rem; background: #fff; color: var(--orange); font-family: 'Oswald', sans-serif; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; font-size: 0.88rem; padding: 0.875rem 2rem; border-radius: 0; text-decoration: none; transition: background 0.18s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.18s ease; }
+    .btn-white:hover { background: rgba(255,255,255,0.9); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.2); }
+    .btn-white:active { transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .svc-hero-grid { grid-template-columns: 1fr; }
+      .svc-feat-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 480px) {
+      .svc-feat-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="cursor-glow"></div>
+<div id="float-cta">
+  <a href="tel:7142201466" aria-label="Call 7 Day Muffler">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+    Call Now
+  </a>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" style="display:flex;align-items:center;text-decoration:none;flex-shrink:0;" aria-label="7 Day Muffler Home">
+      <img src="brand_assets/gallery-pics/7daylogomuffler-removebg-preview.png" alt="7 Day Muffler & Auto Repair" class="nav-logo">
+    </a>
+    <nav class="nav-links" aria-label="Site sections">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:0.875rem;">
+      <a href="tel:7142201466" class="btn-o" style="font-size:0.78rem;padding:0.65rem 1.2rem;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        (714) 220-1466
+      </a>
+      <button id="ham" aria-label="Toggle menu" aria-expanded="false" style="background:none;border:none;color:var(--text);cursor:pointer;padding:6px;display:none;">
+        <svg id="ham-open" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        <svg id="ham-close" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mob-menu" role="menu">
+    <a href="index.html" role="menuitem">Home</a>
+    <a href="about.html" role="menuitem">About Us</a>
+    <a href="services.html" role="menuitem">Services</a>
+    <a href="contact.html" role="menuitem">Contact</a>
+  </div>
+</nav>
+
+<!-- ═══════════════ PAGE HERO ═══════════════ -->
+<header class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('brand_assets/gallery-pics/fthfth.jpg');"></div>
+  <div class="page-hero-content">
+    <div class="label">What We Do</div>
+    <h1 class="page-hero-title">OUR<br><span>SERVICES</span></h1>
+    <p class="page-hero-sub">Expert exhaust work, catalytic converters, and more — done right the first time.</p>
+  </div>
+</header>
+
+<!-- ═══════════════ MARQUEE ═══════════════ -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="mq-item">Custom Exhaust</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Catalytic Converters</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Muffler Delete</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Resonator Delete</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Oil Changes</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Exhaust Leak Repair</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">CA CARB Compliant Parts</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Same Day Service</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Custom Exhaust</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Catalytic Converters</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Muffler Delete</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Resonator Delete</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Oil Changes</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Exhaust Leak Repair</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">CA CARB Compliant Parts</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Same Day Service</span><span class="mq-item mq-dot">·</span>
+  </div>
+</div>
+
+<!-- ═══════════════ SERVICES ═══════════════ -->
+<section class="svc-section">
+  <div class="svc-watermark" aria-hidden="true">EXHAUST</div>
+  <div style="max-width:1200px;margin:0 auto 3rem;text-align:center;" class="reveal" data-a="blur">
+    <div class="label" style="justify-content:center;">Everything We Offer</div>
+    <h2 style="font-family:'Bebas Neue',cursive;font-size:clamp(4.5rem,9vw,9rem);line-height:0.85;letter-spacing:-0.02em;">OUR <span style="color:var(--orange);">SERVICES</span></h2>
+    <div style="width:5rem;height:3px;background:linear-gradient(90deg,var(--orange),var(--blue));margin:1rem auto 1.5rem;border-radius:2px;"></div>
+    <p style="color:var(--muted);font-size:1rem;max-width:520px;margin:0 auto;font-weight:300;line-height:1.7;">From catalytic converters to full custom builds — if it involves exhaust, we've got it covered. Six services, one shop, 35 years of expertise.</p>
+  </div>
+
+  <!-- Hero cards -->
+  <div class="svc-hero-grid">
+    <div class="svc-hero-card reveal" data-a="left">
+      <div class="img-bg" style="background-image:url('brand_assets/gallery-pics/drtgrdg.jpg');"></div>
+      <div class="svc-hero-content">
+        <div class="svc-hero-tag">01 — Most Requested</div>
+        <div class="svc-hero-title">Catalytic Converter<br>Replacement</div>
+        <div class="svc-hero-desc">CA CARB-compliant cats for Nissan, Toyota, BMW, Prius &amp; more. In and out in under 2 hours for most vehicles.</div>
+      </div>
+    </div>
+    <div class="svc-hero-card reveal" data-a="right">
+      <div class="img-bg" style="background-image:url('brand_assets/gallery-pics/fthfth.jpg');"></div>
+      <div class="svc-hero-content">
+        <div class="svc-hero-tag">02 — We Specialize In This</div>
+        <div class="svc-hero-title">Custom Exhaust<br>Installation</div>
+        <div class="svc-hero-desc">Cat-back, axle-back, full custom fabrication. Every weld done in-house by experienced hands.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature cards -->
+  <div class="svc-feat-grid">
+    <div class="svc-feat-card reveal" data-a="left">
+      <div class="svc-feat-icon" style="background:rgba(212,86,26,0.12);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M12 6v6l4 2"/>
+        </svg>
+      </div>
+      <div class="svc-feat-title">Muffler Delete</div>
+      <div class="svc-feat-desc">Remove your stock muffler and replace it with a straight pipe or performance resonator for a deeper, more aggressive exhaust note.</div>
+    </div>
+    <div class="svc-feat-card reveal">
+      <div class="svc-feat-icon" style="background:rgba(43,120,197,0.12);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+        </svg>
+      </div>
+      <div class="svc-feat-title">Resonator Delete</div>
+      <div class="svc-feat-desc">Eliminate the resonator for a louder, sportier exhaust tone without fully deleting the muffler. Popular choice for daily drivers wanting more presence.</div>
+    </div>
+    <div class="svc-feat-card reveal">
+      <div class="svc-feat-icon" style="background:rgba(212,86,26,0.12);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 0 0 18 0"/><path d="M3 12a9 9 0 0 1 18 0"/><path d="M12 3v18"/>
+        </svg>
+      </div>
+      <div class="svc-feat-title">Oil Change &amp; Lube</div>
+      <div class="svc-feat-desc">Conventional and synthetic oil changes. Quick, thorough, and priced right. Keep your engine running clean between exhaust jobs.</div>
+    </div>
+    <div class="svc-feat-card reveal" data-a="right">
+      <div class="svc-feat-icon" style="background:rgba(43,120,197,0.12);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/>
+        </svg>
+      </div>
+      <div class="svc-feat-title">Exhaust Leak Repair</div>
+      <div class="svc-feat-desc">Rattling, hissing, or dropping mileage? We diagnose and fix exhaust leaks fast — gaskets, flanges, flex pipes, and more.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ VEHICLES WE SERVE ═══════════════ -->
+<section class="svc-brands">
+  <div class="svc-brands-inner">
+    <div style="text-align:center;margin-bottom:2rem;" class="reveal" data-a="blur">
+      <div class="label" style="justify-content:center;">Vehicles We Work On</div>
+      <h3 style="font-family:'Bebas Neue',cursive;font-size:clamp(2rem,5vw,3.5rem);line-height:0.92;letter-spacing:-0.01em;">ALL MAKES &amp; <span style="color:var(--orange);">MODELS</span></h3>
+    </div>
+    <div class="pills" style="justify-content:center;" aria-label="Vehicle makes we service">
+      <span class="pill-label">Makes:</span>
+      <span class="pill">Toyota</span><span class="pill">Honda</span><span class="pill">Nissan</span>
+      <span class="pill">BMW</span><span class="pill">Ford</span><span class="pill">Chevy</span>
+      <span class="pill">Subaru</span><span class="pill">Dodge</span><span class="pill">Prius</span>
+      <span class="pill">Lexus</span><span class="pill">Mazda</span><span class="pill">Mitsubishi</span>
+      <span class="pill">Hyundai</span><span class="pill">Kia</span><span class="pill">Mercedes</span>
+      <span class="pill">Acura</span><span class="pill">+ More</span>
+    </div>
+    <div class="pills" style="justify-content:center;margin-top:1rem;" aria-label="Specialty services">
+      <span class="pill-label">Specialty:</span>
+      <span class="pill">CA CARB Compliant</span><span class="pill">Performance Builds</span>
+      <span class="pill">Cat-Back Systems</span><span class="pill">Axle-Back Systems</span>
+      <span class="pill">Headers</span><span class="pill">Downpipes</span><span class="pill">Same-Day Service</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CTA ═══════════════ -->
+<section class="svc-cta">
+  <h2 class="svc-cta-title reveal" data-a="blur">READY TO GET STARTED?</h2>
+  <p class="svc-cta-sub reveal">Call us for a free quote. Most exhaust jobs are completed the same day you bring it in.</p>
+  <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;" class="reveal">
+    <a href="tel:7142201466" class="btn-white">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      Call Now — (714) 220-1466
+    </a>
+    <a href="contact.html" style="display:inline-flex;align-items:center;gap:0.45rem;background:transparent;color:#fff;font-family:'Oswald',sans-serif;font-weight:400;letter-spacing:0.09em;text-transform:uppercase;font-size:0.88rem;padding:0.875rem 2rem;border-radius:0;border:1px solid rgba(255,255,255,0.4);text-decoration:none;transition:border-color 0.18s ease;">
+      Get Directions
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div><div class="footer-brand">7 Day Muffler &amp; Auto Repair</div><div class="footer-addr">8032 Main St, Stanton, CA 90680 · (714) 220-1466</div></div>
+    <div class="footer-links">
+      <a href="about.html">About Us</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+      <a href="https://www.yelp.com/biz/7-day-muffler-and-auto-repair-stanton" target="_blank" rel="noopener">Yelp</a>
+    </div>
+    <div class="footer-copy">© 2025 7 Day Muffler &amp; Auto Repair. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  const ham = document.getElementById('ham'), menu = document.getElementById('mob-menu');
+  const hamOpen = document.getElementById('ham-open'), hamClose = document.getElementById('ham-close');
+  let menuOpen = false;
+  ham.addEventListener('click', () => {
+    menuOpen = !menuOpen; ham.setAttribute('aria-expanded', menuOpen);
+    menu.classList.toggle('open', menuOpen);
+    hamOpen.style.display = menuOpen ? 'none' : ''; hamClose.style.display = menuOpen ? '' : 'none';
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menuOpen = false; ham.setAttribute('aria-expanded', false);
+    menu.classList.remove('open'); hamOpen.style.display = ''; hamClose.style.display = 'none';
+  }));
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 70), { passive: true });
+
+  const floatCta = document.getElementById('float-cta');
+  window.addEventListener('scroll', () => {
+    if (floatCta) floatCta.classList.toggle('visible', window.scrollY > 300);
+  }, { passive: true });
+
+  const progressBar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+    progressBar.style.width = (pct * 100) + '%';
+  }, { passive: true });
+
+  const glow = document.getElementById('cursor-glow');
+  let glowVisible = false;
+  document.addEventListener('mousemove', (e) => {
+    glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px';
+    if (!glowVisible) { glow.style.opacity = '1'; glowVisible = true; }
+  }, { passive: true });
+  document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; glowVisible = false; });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('in'), parseFloat(e.target.dataset.delay||0)); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach((el) => {
+    const siblings = Array.from(el.parentElement.querySelectorAll(':scope > .reveal'));
+    el.dataset.delay = siblings.indexOf(el) * 90; io.observe(el);
+  });
+
+  /* 3D card tilt */
+  document.querySelectorAll('.svc-hero-card, .svc-feat-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width - 0.5) * 8;
+      const y = ((e.clientY - r.top) / r.height - 0.5) * -8;
+      card.style.transform = `perspective(700px) rotateY(${x}deg) rotateX(${y}deg) translateY(-5px)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+</script>
+</body>
+</html>
