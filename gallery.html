@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — 7 Day Muffler & Auto Repair | Our Work in Stanton, CA</title>
+  <meta name="description" content="Browse our work at 7 Day Muffler & Auto Repair. Custom exhaust builds, catalytic conversions, and shop life in Stanton, CA.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+
+    /* ── Gallery section ── */
+    .gallery-section {
+      padding: 5rem 1.5rem 7rem;
+      background: var(--dark);
+      position: relative; overflow: hidden;
+    }
+    .gallery-watermark {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(8rem,20vw,24rem);
+      color: rgba(255,255,255,0.014);
+      white-space: nowrap; pointer-events: none; user-select: none;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── Filter bar ── */
+    .filter-bar {
+      max-width: 1200px; margin: 0 auto 2.5rem;
+      display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+    }
+    .filter-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.64rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted); margin-right: 0.5rem;
+    }
+    .filter-btn {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.45rem 1.1rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent; color: var(--muted);
+      cursor: pointer; transition: all 0.22s ease; border-radius: 0;
+    }
+    .filter-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .filter-btn.active { background: var(--orange); border-color: var(--orange); color: #fff; }
+
+    /* ── Bento grid ── */
+    .g-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 280px;
+      gap: 8px;
+    }
+    .g-item {
+      position: relative; overflow: hidden;
+      cursor: pointer; background: var(--elevated);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .g-item.featured { grid-column: span 2; grid-row: span 2; }
+    .g-item.tall     { grid-row: span 2; }
+    .g-item.wide     { grid-column: span 2; }
+
+    .g-item img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .g-item:hover img { transform: scale(1.09); }
+
+    /* Overlay */
+    .g-ov {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top,
+        rgba(10,10,12,0.95) 0%,
+        rgba(10,10,12,0.35) 45%,
+        transparent 100%);
+      opacity: 0; transition: opacity 0.38s ease;
+      display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 1.75rem 2rem;
+    }
+    .g-item:hover .g-ov { opacity: 1; }
+
+    /* Big number watermark on hover */
+    .g-num {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 5rem; line-height: 1;
+      color: var(--orange); opacity: 0;
+      position: absolute; top: 0.75rem; right: 1.25rem;
+      transition: opacity 0.38s ease, transform 0.38s ease;
+      transform: translateY(-6px);
+      pointer-events: none; user-select: none;
+    }
+    .g-item:hover .g-num { opacity: 0.18; transform: translateY(0); }
+
+    .g-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.7rem; line-height: 1; color: #fff; letter-spacing: 0.02em;
+      transform: translateY(12px);
+      transition: transform 0.38s cubic-bezier(0.22,1,0.36,1);
+    }
+    .g-sub {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.64rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--orange); margin-top: 0.3rem;
+      transform: translateY(12px);
+      transition: transform 0.38s cubic-bezier(0.22,1,0.36,1) 0.04s;
+    }
+    .g-item:hover .g-title,
+    .g-item:hover .g-sub { transform: translateY(0); }
+
+    /* Orange corner triangle */
+    .g-corner {
+      position: absolute; top: 0; left: 0; width: 0; height: 0;
+      border-style: solid;
+      border-width: 44px 44px 0 0;
+      border-color: var(--orange) transparent transparent transparent;
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .g-item:hover .g-corner { opacity: 1; }
+
+    /* Expand icon */
+    .g-expand {
+      position: absolute; top: 1rem; right: 1rem;
+      width: 34px; height: 34px;
+      border: 1px solid rgba(255,255,255,0.55);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(0.7);
+      transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .g-item:hover .g-expand { opacity: 1; transform: scale(1); }
+
+    /* Orange scan line accent */
+    .g-item::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--orange), var(--blue));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .g-item:hover::after { transform: scaleX(1); }
+
+    /* Dimmed / filtered out state */
+    .g-item.dimmed { opacity: 0.15; transform: scale(0.97); pointer-events: none; }
+
+    /* ── Lightbox ── */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(4,4,6,0.97);
+      backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.38s ease;
+    }
+    #lightbox.open { opacity: 1; pointer-events: all; }
+
+    .lb-wrap {
+      position: relative;
+      transform: scale(0.86) translateY(20px);
+      transition: transform 0.42s cubic-bezier(0.22,1,0.36,1);
+      display: flex; flex-direction: column; align-items: center;
+    }
+    #lightbox.open .lb-wrap { transform: scale(1) translateY(0); }
+
+    #lb-img {
+      max-width: min(88vw, 1000px);
+      max-height: 72vh;
+      width: auto; height: auto;
+      object-fit: contain; display: block;
+    }
+
+    /* Bracket corners */
+    .lb-b {
+      position: absolute; width: 28px; height: 28px;
+      border-color: var(--orange); border-style: solid;
+      transition: width 0.4s ease, height 0.4s ease;
+    }
+    .lb-b.tl { top: -10px; left: -10px; border-width: 3px 0 0 3px; }
+    .lb-b.tr { top: -10px; right: -10px; border-width: 3px 3px 0 0; }
+    .lb-b.bl { bottom: -10px; left: -10px; border-width: 0 0 3px 3px; }
+    .lb-b.br { bottom: -10px; right: -10px; border-width: 0 3px 3px 0; }
+    #lightbox.open .lb-b { width: 36px; height: 36px; }
+
+    .lb-info {
+      text-align: center; margin-top: 1.5rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+    }
+    #lb-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.6rem; letter-spacing: 0.04em; color: #fff;
+    }
+    #lb-counter {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.65rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--orange);
+    }
+
+    .lb-arrow {
+      position: fixed; top: 50%; z-index: 2001;
+      transform: translateY(-50%);
+      background: rgba(212,86,26,0.1);
+      border: 1px solid rgba(212,86,26,0.25);
+      color: #fff; width: 54px; height: 54px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border-radius: 0;
+      transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+    .lb-arrow:hover { background: var(--orange); border-color: var(--orange); }
+    .lb-prev { left: 1.25rem; }
+    .lb-next { right: 1.25rem; }
+    .lb-prev:hover { transform: translateY(-50%) translateX(-2px); }
+    .lb-next:hover { transform: translateY(-50%) translateX(2px); }
+
+    .lb-close {
+      position: fixed; top: 1.25rem; right: 1.25rem; z-index: 2001;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #fff; width: 46px; height: 46px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border-radius: 0;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      font-size: 1rem; font-family: 'Oswald', sans-serif;
+    }
+    .lb-close:hover { background: rgba(212,86,26,0.18); border-color: var(--orange); transform: rotate(90deg); }
+
+    /* Thumbnail strip */
+    .lb-thumbs {
+      display: flex; gap: 6px; margin-top: 1.25rem;
+      max-width: min(88vw, 1000px); overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+    .lb-thumbs::-webkit-scrollbar { display: none; }
+    .lb-thumb {
+      width: 52px; height: 36px; flex-shrink: 0;
+      object-fit: cover; cursor: pointer;
+      opacity: 0.4; border: 1px solid transparent;
+      transition: opacity 0.2s ease, border-color 0.2s ease;
+    }
+    .lb-thumb.active { opacity: 1; border-color: var(--orange); }
+    .lb-thumb:hover { opacity: 0.8; }
+
+    /* ── CTA strip ── */
+    .gallery-cta {
+      background: var(--steel); padding: 4.5rem 1.5rem; position: relative; overflow: hidden;
+    }
+    .gallery-cta::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--orange), var(--blue), transparent);
+    }
+    .gallery-cta-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center;
+    }
+    .gallery-cta-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(2rem,5vw,3.5rem); line-height: 0.9; letter-spacing: -0.01em;
+    }
+    .gallery-cta-title span { color: var(--orange); }
+    .gallery-cta-sub { font-size: 0.95rem; color: rgba(240,239,232,0.6); font-weight: 300; line-height: 1.65; margin-top: 0.6rem; }
+
+    @media (max-width: 900px) {
+      .g-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: 220px; }
+      .g-item.featured { grid-column: span 2; grid-row: span 1; }
+      .g-item.tall { grid-row: span 1; }
+      .g-item.wide { grid-column: span 2; }
+      .gallery-cta-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .g-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+      .g-item.featured, .g-item.wide, .g-item.tall { grid-column: span 1; grid-row: span 1; }
+      .lb-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="cursor-glow"></div>
+<div id="float-cta">
+  <a href="tel:7142201466" aria-label="Call 7 Day Muffler">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+    Call Now
+  </a>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" style="display:flex;align-items:center;text-decoration:none;flex-shrink:0;" aria-label="7 Day Muffler Home">
+      <img src="brand_assets/gallery-pics/7daylogomuffler-removebg-preview.png" alt="7 Day Muffler & Auto Repair" class="nav-logo">
+    </a>
+    <nav class="nav-links" aria-label="Site sections">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html" class="active">Gallery</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:0.875rem;">
+      <a href="tel:7142201466" class="btn-o" style="font-size:0.78rem;padding:0.65rem 1.2rem;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        (714) 220-1466
+      </a>
+      <button id="ham" aria-label="Toggle menu" aria-expanded="false" style="background:none;border:none;color:var(--text);cursor:pointer;padding:6px;display:none;">
+        <svg id="ham-open" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        <svg id="ham-close" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mob-menu" role="menu">
+    <a href="index.html" role="menuitem">Home</a>
+    <a href="about.html" role="menuitem">About Us</a>
+    <a href="services.html" role="menuitem">Services</a>
+    <a href="gallery.html" role="menuitem">Gallery</a>
+    <a href="contact.html" role="menuitem">Contact</a>
+  </div>
+</nav>
+
+<!-- ═══════════════ PAGE HERO ═══════════════ -->
+<header class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('brand_assets/gallery-pics/fthfth.jpg');"></div>
+  <div class="page-hero-content">
+    <div class="label">The Work</div>
+    <h1 class="page-hero-title">OUR<br><span>GALLERY</span></h1>
+    <p class="page-hero-sub">Custom exhaust builds, catalytic conversions, and shop life — straight from the floor in Stanton, CA.</p>
+  </div>
+</header>
+
+<!-- ═══════════════ MARQUEE ═══════════════ -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="mq-item">Custom Exhaust</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Catalytic Converters</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">The Shop</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Muffler Work</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Custom Builds</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Family Owned 35 Years</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Stanton, CA</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Custom Exhaust</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Catalytic Converters</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">The Shop</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Muffler Work</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Custom Builds</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Family Owned 35 Years</span><span class="mq-item mq-dot">·</span>
+    <span class="mq-item">Stanton, CA</span><span class="mq-item mq-dot">·</span>
+  </div>
+</div>
+
+<!-- ═══════════════ GALLERY ═══════════════ -->
+<section class="gallery-section">
+  <div class="gallery-watermark" aria-hidden="true">GALLERY</div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar reveal" data-a="blur">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active" data-filter="all">All Work</button>
+    <button class="filter-btn" data-filter="exhaust">Exhaust</button>
+    <button class="filter-btn" data-filter="shop">The Shop</button>
+    <button class="filter-btn" data-filter="builds">Custom Builds</button>
+  </div>
+
+  <!-- Bento grid -->
+  <div class="g-grid" id="g-grid">
+
+    <!-- 01 — Featured large -->
+    <div class="g-item featured reveal" data-a="left" data-cat="exhaust builds" data-idx="0">
+      <img src="brand_assets/gallery-pics/fthfth.jpg" alt="Custom exhaust system" loading="lazy">
+      <div class="g-corner"></div>
+      <div class="g-num">01</div>
+      <div class="g-expand">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      </div>
+      <div class="g-ov">
+        <div class="g-title">Custom Exhaust System</div>
+        <div class="g-sub">Exhaust · Custom Build</div>
+      </div>
+    </div>
+
+    <!-- 02 — Tall right -->
+    <div class="g-item tall reveal" data-a="right" data-cat="exhaust" data-idx="1">
+      <img src="brand_assets/gallery-pics/drtgrdg.jpg" alt="Catalytic converter" loading="lazy">
+      <div class="g-corner"></div>
+      <div class="g-num">02</div>
+      <div class="g-expand">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      </div>
+      <div class="g-ov">
+        <div class="g-title">Catalytic Converter</div>
+        <div class="g-sub">Exhaust · CA CARB Compliant</div>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="g-item reveal" data-a="left" data-cat="shop" data-idx="2">
+      <img src="brand_assets/gallery-pics/yhhhhh.jpg" alt="The shop" loading="lazy">
+      <div class="g-corner"></div>
+      <div class="g-num">03</div>
+      <div class="g-expand">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      </div>
+      <div class="g-ov">
+        <div class="g-title">Inside The Shop</div>
+        <div class="g-sub">Shop · Day to Day</div>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="g-item reveal" data-cat="shop" data-idx="3">
+      <img src="brand_assets/gallery-pics/display.jpg" alt="Exhaust display" loading="lazy">
+      <div class="g-corner"></div>
+      <div class="g-num">04</div>
+      <div class="g-expand">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      </div>
+      <div class="g-ov">
+        <div class="g-title">Exhaust Selection</div>
+        <div class="g-sub">Shop · Parts Display</div>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="g-item reveal" data-a="right" data-cat="exhaust" data-idx="4">
+      <img src="brand_assets/gallery-pics/anothekdsd.jpg" alt="Muffler work" loading="lazy">
+      <div class="g-corner"></div>
+      <div class="g-num">05</div>
+      <div class="g-expand">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      </div>
+      <div class="g-ov">
+        <div class="g-title">Muffler Install</div>
+        <div class="g-sub">Exhaust · Muffler Work</div>
+      </div>
+    </div>
+
+    <!-- 06 — Wide -->
+    <div class="g-item wide reveal" data-a="left" data-cat="shop builds" data-idx="5">
+      <img src="brand_assets/gallery-pics/o (7).jpg" alt="Quality parts" loading="lazy">
+      <div class="g-corner"></div>
+      <div class="g-num">06</div>
+      <div class="g-expand">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      </div>
+      <div class="g-ov">
+        <div class="g-title">Quality Parts & Builds</div>
+        <div class="g-sub">Builds · Premium Parts</div>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="g-item reveal" data-a="right" data-cat="builds" data-idx="6">
+      <img src="brand_assets/gallery-pics/hf_20260506_025255_48e3233a-022f-4778-9fdb-dcbfb3ce9c1b.png" alt="Performance build" loading="lazy">
+      <div class="g-corner"></div>
+      <div class="g-num">07</div>
+      <div class="g-expand">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      </div>
+      <div class="g-ov">
+        <div class="g-title">Performance Build</div>
+        <div class="g-sub">Builds · Custom Fabrication</div>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="g-item reveal" data-a="left" data-cat="exhaust builds" data-idx="7">
+      <img src="brand_assets/gallery-pics/hf_20260506_025327_67d7de3d-ce84-48d8-925c-d5b839a4f699.png" alt="Exhaust fabrication" loading="lazy">
+      <div class="g-corner"></div>
+      <div class="g-num">08</div>
+      <div class="g-expand">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      </div>
+      <div class="g-ov">
+        <div class="g-title">Exhaust Fabrication</div>
+        <div class="g-sub">Exhaust · Pipe Work</div>
+      </div>
+    </div>
+
+    <!-- 09 — Wide -->
+    <div class="g-item wide reveal" data-a="right" data-cat="exhaust builds" data-idx="8">
+      <img src="brand_assets/gallery-pics/hf_20260506_025344_f49d75a9-7b3c-4b3d-9047-4e9e9f4b1812.png" alt="Custom pipe work" loading="lazy">
+      <div class="g-corner"></div>
+      <div class="g-num">09</div>
+      <div class="g-expand">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      </div>
+      <div class="g-ov">
+        <div class="g-title">Custom Pipe Work</div>
+        <div class="g-sub">Exhaust · Builds · Fabrication</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ LIGHTBOX ═══════════════ -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lb-close" aria-label="Close">✕</button>
+  <button class="lb-arrow lb-prev" aria-label="Previous image">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="lb-arrow lb-next" aria-label="Next image">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <div class="lb-wrap">
+    <span class="lb-b tl"></span>
+    <span class="lb-b tr"></span>
+    <span class="lb-b bl"></span>
+    <span class="lb-b br"></span>
+    <img id="lb-img" src="" alt="">
+    <div class="lb-info">
+      <div id="lb-title"></div>
+      <div id="lb-counter"></div>
+    </div>
+    <div class="lb-thumbs" id="lb-thumbs"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ CTA ═══════════════ -->
+<section class="gallery-cta">
+  <div class="gallery-cta-inner reveal">
+    <div>
+      <h2 class="gallery-cta-title">LIKE WHAT<br>YOU <span>SEE?</span></h2>
+      <p class="gallery-cta-sub">Call us for a free quote. Most exhaust jobs are done the same day you bring it in.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.75rem;align-items:flex-end;">
+      <a href="tel:7142201466" class="btn-o">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        Call Now — Free Quote
+      </a>
+      <a href="services.html" class="btn-gh">See All Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div><div class="footer-brand">7 Day Muffler &amp; Auto Repair</div><div class="footer-addr">8032 Main St, Stanton, CA 90680 · (714) 220-1466</div></div>
+    <div class="footer-links">
+      <a href="about.html">About Us</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a href="https://www.yelp.com/biz/7-day-muffler-and-auto-repair-stanton" target="_blank" rel="noopener">Yelp</a>
+    </div>
+    <div class="footer-copy">© 2025 7 Day Muffler &amp; Auto Repair. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  /* ── Nav ── */
+  const ham = document.getElementById('ham'), menu = document.getElementById('mob-menu');
+  const hamOpen = document.getElementById('ham-open'), hamClose = document.getElementById('ham-close');
+  let menuOpen = false;
+  ham.addEventListener('click', () => {
+    menuOpen = !menuOpen; ham.setAttribute('aria-expanded', menuOpen);
+    menu.classList.toggle('open', menuOpen);
+    hamOpen.style.display = menuOpen ? 'none' : ''; hamClose.style.display = menuOpen ? '' : 'none';
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menuOpen = false; ham.setAttribute('aria-expanded', false);
+    menu.classList.remove('open'); hamOpen.style.display = ''; hamClose.style.display = 'none';
+  }));
+
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 70), { passive: true });
+
+  /* ── Float CTA ── */
+  const floatCta = document.getElementById('float-cta');
+  window.addEventListener('scroll', () => {
+    if (floatCta) floatCta.classList.toggle('visible', window.scrollY > 300);
+  }, { passive: true });
+
+  /* ── Progress bar ── */
+  const progressBar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+    progressBar.style.width = (pct * 100) + '%';
+  }, { passive: true });
+
+  /* ── Cursor glow ── */
+  const glow = document.getElementById('cursor-glow');
+  let glowVisible = false;
+  document.addEventListener('mousemove', (e) => {
+    glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px';
+    if (!glowVisible) { glow.style.opacity = '1'; glowVisible = true; }
+  }, { passive: true });
+  document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; glowVisible = false; });
+
+  /* ── Scroll reveal ── */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('in'), parseFloat(e.target.dataset.delay||0)); io.unobserve(e.target); } });
+  }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    const siblings = Array.from(el.parentElement.querySelectorAll(':scope > .reveal'));
+    el.dataset.delay = siblings.indexOf(el) * 80; io.observe(el);
+  });
+
+  /* ── Filter ── */
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.g-item').forEach(item => {
+        const cat = item.dataset.cat || '';
+        const match = filter === 'all' || cat.includes(filter);
+        item.classList.toggle('dimmed', !match);
+      });
+    });
+  });
+
+  /* ── Lightbox ── */
+  const images = [
+    { src: 'brand_assets/gallery-pics/fthfth.jpg',                                                           title: 'Custom Exhaust System' },
+    { src: 'brand_assets/gallery-pics/drtgrdg.jpg',                                                          title: 'Catalytic Converter' },
+    { src: 'brand_assets/gallery-pics/yhhhhh.jpg',                                                           title: 'Inside The Shop' },
+    { src: 'brand_assets/gallery-pics/display.jpg',                                                          title: 'Exhaust Selection' },
+    { src: 'brand_assets/gallery-pics/anothekdsd.jpg',                                                       title: 'Muffler Install' },
+    { src: 'brand_assets/gallery-pics/o (7).jpg',                                                            title: 'Quality Parts & Builds' },
+    { src: 'brand_assets/gallery-pics/hf_20260506_025255_48e3233a-022f-4778-9fdb-dcbfb3ce9c1b.png',          title: 'Performance Build' },
+    { src: 'brand_assets/gallery-pics/hf_20260506_025327_67d7de3d-ce84-48d8-925c-d5b839a4f699.png',          title: 'Exhaust Fabrication' },
+    { src: 'brand_assets/gallery-pics/hf_20260506_025344_f49d75a9-7b3c-4b3d-9047-4e9e9f4b1812.png',          title: 'Custom Pipe Work' },
+  ];
+
+  let currentIdx = 0;
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  const lbTitle = document.getElementById('lb-title');
+  const lbCounter = document.getElementById('lb-counter');
+  const lbThumbs = document.getElementById('lb-thumbs');
+
+  /* Build thumbnail strip */
+  images.forEach((img, i) => {
+    const t = document.createElement('img');
+    t.src = img.src; t.alt = img.title; t.className = 'lb-thumb';
+    t.addEventListener('click', () => openLightbox(i));
+    lbThumbs.appendChild(t);
+  });
+
+  function openLightbox(idx) {
+    currentIdx = idx;
+    lbImg.src = images[idx].src;
+    lbImg.alt = images[idx].title;
+    lbTitle.textContent = images[idx].title;
+    lbCounter.textContent = `${String(idx + 1).padStart(2, '0')} / ${String(images.length).padStart(2, '0')}`;
+    lbThumbs.querySelectorAll('.lb-thumb').forEach((t, i) => t.classList.toggle('active', i === idx));
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function navigate(dir) {
+    currentIdx = (currentIdx + dir + images.length) % images.length;
+    /* Slight fade on image swap */
+    lbImg.style.opacity = '0';
+    lbImg.style.transform = `translateX(${dir > 0 ? '20px' : '-20px'})`;
+    setTimeout(() => {
+      openLightbox(currentIdx);
+      lbImg.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+      lbImg.style.opacity = '1';
+      lbImg.style.transform = 'translateX(0)';
+      setTimeout(() => { lbImg.style.transition = ''; }, 260);
+    }, 120);
+  }
+
+  document.querySelector('.lb-close').addEventListener('click', closeLightbox);
+  document.querySelector('.lb-prev').addEventListener('click', () => navigate(-1));
+  document.querySelector('.lb-next').addEventListener('click', () => navigate(1));
+  lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')      closeLightbox();
+    if (e.key === 'ArrowLeft')   navigate(-1);
+    if (e.key === 'ArrowRight')  navigate(1);
+  });
+
+  /* Touch swipe on lightbox */
+  let touchStartX = 0;
+  lb.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) navigate(dx < 0 ? 1 : -1);
+  });
+
+  /* Open lightbox from grid clicks */
+  document.querySelectorAll('.g-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const idx = parseInt(item.dataset.idx);
+      if (!isNaN(idx)) openLightbox(idx);
+    });
+  });
+
+  /* 3D card tilt */
+  document.querySelectorAll('.g-item').forEach(item => {
+    item.addEventListener('mousemove', e => {
+      const r = item.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width - 0.5) * 10;
+      const y = ((e.clientY - r.top) / r.height - 0.5) * -10;
+      item.style.transform = `perspective(800px) rotateY(${x}deg) rotateX(${y}deg)`;
+    });
+    item.addEventListener('mouseleave', () => { item.style.transform = ''; });
+  });
+</script>
+</body>
+</html>
