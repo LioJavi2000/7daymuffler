@@ -25,7 +25,7 @@
     .svc-hero-desc { font-size: 0.875rem; color: rgba(255,255,255,0.7); line-height: 1.6; max-width: 340px; }
 
     /* ── Feature cards ── */
-    .svc-feat-grid { max-width: 1200px; margin: 8px auto 0; display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+    .svc-feat-grid { max-width: 1200px; margin: 8px auto 0; display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
     .svc-feat-card { background: var(--elevated); border: 1px solid var(--border); border-radius: 6px; padding: 2.25rem 1.875rem 2rem; position: relative; overflow: hidden; cursor: default; transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease, border-color 0.22s ease; }
     .svc-feat-card:hover { transform: translateY(-5px); box-shadow: 0 24px 52px rgba(0,0,0,0.45); border-color: rgba(212,86,26,0.28); }
     .svc-feat-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; transform: scaleX(0); transform-origin: left; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
@@ -152,7 +152,7 @@
     <div class="label" style="justify-content:center;">Everything We Offer</div>
     <h2 style="font-family:'Bebas Neue',cursive;font-size:clamp(4.5rem,9vw,9rem);line-height:0.85;letter-spacing:-0.02em;">OUR <span style="color:var(--orange);">SERVICES</span></h2>
     <div style="width:5rem;height:3px;background:linear-gradient(90deg,var(--orange),var(--blue));margin:1rem auto 1.5rem;border-radius:2px;"></div>
-    <p style="color:var(--muted);font-size:1rem;max-width:520px;margin:0 auto;font-weight:300;line-height:1.7;">From catalytic converters to full custom builds — if it involves exhaust, we've got it covered. Six services, one shop, 38 years of expertise.</p>
+    <p style="color:var(--muted);font-size:1rem;max-width:520px;margin:0 auto;font-weight:300;line-height:1.7;">From catalytic converters to full custom builds — if it involves exhaust, we've got it covered.</p>
   </div>
 
   <!-- Hero cards -->
@@ -186,23 +186,24 @@
   <!-- Feature cards -->
   <div class="svc-feat-grid">
     <div class="svc-feat-card has-img reveal" data-a="left">
-      <div class="img-bg" style="background-image:url('brand_assets/gallery-pics/suspension.png');"></div>
+      <div class="img-bg" style="background-image:url('brand_assets/gallery-pics/suspension2.png');"></div>
       <div class="svc-feat-icon" style="background:rgba(212,86,26,0.18);">
         <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
           <line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
         </svg>
       </div>
-      <div class="svc-feat-title">Shocks &amp; Struts</div>
-      <div class="svc-feat-desc">Worn shocks make your ride rough and your handling unpredictable. We replace shocks and struts on all makes and models — fast turnaround, parts on hand.</div>
+      <div class="svc-feat-title">Suspension Work</div>
+      <div class="svc-feat-desc">Shocks, struts, coil springs, control arms, ball joints, tie rods &amp; sway bar links. We handle the full suspension system — diagnose, repair, restore.</div>
     </div>
-    <div class="svc-feat-card reveal">
-      <div class="svc-feat-icon" style="background:rgba(43,120,197,0.12);">
+    <div class="svc-feat-card has-img reveal">
+      <div class="img-bg" style="background-image:url('brand_assets/gallery-pics/brakes.png');"></div>
+      <div class="svc-feat-icon" style="background:rgba(43,120,197,0.18);">
         <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22V12"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/><circle cx="12" cy="5" r="3"/><path d="M6.6 18.4 4 20.5"/><path d="m17.4 18.4 2.6 2.1"/>
+          <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83"/>
         </svg>
       </div>
-      <div class="svc-feat-title">Suspension Repair</div>
-      <div class="svc-feat-desc">Control arms, ball joints, tie rods, sway bar links — if it's part of your suspension, we diagnose it and fix it right. Restore comfort and control to your ride.</div>
+      <div class="svc-feat-title">Brake Repair &amp; Maintenance</div>
+      <div class="svc-feat-desc">Pads, rotors, calipers, brake lines &amp; fluid flushes. Squealing, grinding, or soft pedal — we diagnose fast and get you stopping safely.</div>
     </div>
     <div class="svc-feat-card reveal" data-a="right">
       <div class="svc-feat-icon" style="background:rgba(43,120,197,0.12);">
