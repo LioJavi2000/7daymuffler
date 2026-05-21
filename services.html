@@ -38,6 +38,15 @@
     .svc-feat-title { font-family: 'Bebas Neue', cursive; font-size: 1.7rem; line-height: 1; letter-spacing: 0.02em; margin-bottom: 0.625rem; color: var(--text); }
     .svc-feat-desc { font-size: 0.85rem; line-height: 1.72; color: rgba(240,239,232,0.62); font-weight: 300; }
 
+    /* ── Photo-backed feature card ── */
+    .svc-feat-card.has-img { border-color: transparent; }
+    .svc-feat-card.has-img .img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .svc-feat-card.has-img:hover .img-bg { transform: scale(1.06); }
+    .svc-feat-card.has-img::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.18) 100%); }
+    .svc-feat-card.has-img .svc-feat-icon,
+    .svc-feat-card.has-img .svc-feat-title,
+    .svc-feat-card.has-img .svc-feat-desc { position: relative; z-index: 2; }
+
     /* ── Specialty pills section ── */
     .svc-brands { padding: 4rem 1.5rem; background: var(--surface); }
     .svc-brands-inner { max-width: 1200px; margin: 0 auto; }
@@ -176,8 +185,9 @@
 
   <!-- Feature cards -->
   <div class="svc-feat-grid">
-    <div class="svc-feat-card reveal" data-a="left">
-      <div class="svc-feat-icon" style="background:rgba(212,86,26,0.12);">
+    <div class="svc-feat-card has-img reveal" data-a="left">
+      <div class="img-bg" style="background-image:url('brand_assets/gallery-pics/suspension.png');"></div>
+      <div class="svc-feat-icon" style="background:rgba(212,86,26,0.18);">
         <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
           <line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
         </svg>
