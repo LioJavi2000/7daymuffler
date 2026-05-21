@@ -13,7 +13,7 @@
     /* ── Services hero cards ── */
     .svc-section { padding: 6rem 1.5rem; background: var(--dark); position: relative; overflow: hidden; }
     .svc-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Bebas Neue', cursive; font-size: clamp(8rem,18vw,22rem); color: rgba(255,255,255,0.016); white-space: nowrap; pointer-events: none; user-select: none; letter-spacing: -0.02em; }
-    .svc-hero-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .svc-hero-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .svc-hero-card { position: relative; min-height: 340px; border-radius: 6px; overflow: hidden; display: flex; align-items: flex-end; padding: 2.25rem 2rem; cursor: pointer; }
     .svc-hero-card .img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94); }
     .svc-hero-card:hover .img-bg { transform: scale(1.06); }
@@ -164,6 +164,14 @@
         <div class="svc-hero-desc">Cat-back, axle-back, full custom fabrication. Every weld done in-house by experienced hands.</div>
       </div>
     </div>
+    <div class="svc-hero-card reveal" data-a="right">
+      <div class="img-bg" style="background-image:url('brand_assets/gallery-pics/oilchange.png');"></div>
+      <div class="svc-hero-content">
+        <div class="svc-hero-tag">03 — Quick &amp; Easy</div>
+        <div class="svc-hero-title">Oil Change &amp;<br>Maintenance</div>
+        <div class="svc-hero-desc">Conventional &amp; synthetic oil changes. Fast in-and-out while you wait.</div>
+      </div>
+    </div>
   </div>
 
   <!-- Feature cards -->
@@ -185,15 +193,6 @@
       </div>
       <div class="svc-feat-title">Resonator Delete</div>
       <div class="svc-feat-desc">Eliminate the resonator for a louder, sportier exhaust tone without fully deleting the muffler. Popular choice for daily drivers wanting more presence.</div>
-    </div>
-    <div class="svc-feat-card reveal">
-      <div class="svc-feat-icon" style="background:rgba(212,86,26,0.12);">
-        <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 12a9 9 0 0 0 18 0"/><path d="M3 12a9 9 0 0 1 18 0"/><path d="M12 3v18"/>
-        </svg>
-      </div>
-      <div class="svc-feat-title">Oil Change &amp; Lube</div>
-      <div class="svc-feat-desc">Conventional and synthetic oil changes. Quick, thorough, and priced right. Keep your engine running clean between exhaust jobs.</div>
     </div>
     <div class="svc-feat-card reveal" data-a="right">
       <div class="svc-feat-icon" style="background:rgba(43,120,197,0.12);">
