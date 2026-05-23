@@ -18,7 +18,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; overflow-x: clip; }
+html { scroll-behavior: smooth; }
 
 body {
   background: var(--dark);
@@ -28,6 +28,9 @@ body {
   -webkit-font-smoothing: antialiased;
   animation: pageEnter 0.55s ease both;
 }
+
+/* Clip horizontal overflow on all sections so reveal animations don't escape viewport */
+section, .marquee-wrap, .stats-bar, footer, .page-hero, .quote-block { overflow-x: hidden; }
 @keyframes pageEnter { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
 
 body::after {
