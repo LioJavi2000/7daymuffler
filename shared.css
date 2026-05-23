@@ -29,8 +29,8 @@ body {
   animation: pageEnter 0.55s ease both;
 }
 
-/* Clip horizontal overflow on all sections so reveal animations don't escape viewport */
-section, .marquee-wrap, .stats-bar, footer, .page-hero, .quote-block { overflow-x: hidden; }
+/* Clip horizontal overflow so reveal animations don't escape viewport — exclude .hero to preserve sticky */
+section:not(.hero), .marquee-wrap, .stats-bar, footer, .page-hero, .quote-block { overflow-x: hidden; }
 @keyframes pageEnter { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
 
 body::after {
