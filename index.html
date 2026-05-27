@@ -91,15 +91,19 @@
 
     /* ── Mobile hero ── */
     @media (max-width: 768px) {
-      .hero-content { padding-top: 130px; }
+      .hero-content { padding-top: 108px; }
       .btn-glass { white-space: nowrap; font-size: 0.68rem !important; padding: 0.55rem 0.85rem !important; }
-      .hero-logo-center img { height: min(200px, 62vw); }
-      .hero-h1 { font-size: clamp(2.6rem, 13vw, 4.5rem); }
-      .hero-sub { font-size: 0.95rem; padding: 0 0.5rem; }
-      .hero-badges { gap: 0.75rem 1rem; justify-content: center; }
+      .hero-logo-center img { height: min(180px, 55vw); }
+      .hero-h1 { font-size: clamp(2.4rem, 12vw, 4.5rem); margin-bottom: 1rem; }
+      .hero-sub { font-size: 0.88rem; padding: 0 0.5rem; margin-bottom: 1.25rem; }
+      .hero-badges { gap: 0.6rem 0.875rem; justify-content: center; margin-top: 1.25rem; }
       .badge-divider { display: none; }
       .hero-badges a { flex-shrink: 0; }
-      .hero-cta { flex-direction: column; align-items: center; }
+      .badge-icon { width: 28px !important; height: 28px !important; }
+      .badge-icon svg { width: 18px !important; height: 18px !important; }
+      .badge-score { font-size: 1.1rem; }
+      .hero-badges svg[width="36"] { width: 28px; height: 28px; }
+      .hero-cta { flex-direction: column; align-items: center; gap: 0.6rem; }
       .hero-cta .btn-o, .hero-cta .btn-gh { width: 100%; max-width: 280px; justify-content: center; }
     }
 
