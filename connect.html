@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4zseMxIfL/Es5h/px1swQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -262,53 +261,6 @@
 
     .social-row a:hover { opacity: 1; transform: translateY(-2px); }
 
-    /* ── QR Section ── */
-    .qr-section {
-      width: 100%;
-      border-top: 1px solid var(--border);
-      padding-top: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .qr-eyebrow {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    #qr-output {
-      background: #fff;
-      border-radius: 10px;
-      padding: 10px;
-      display: inline-block;
-      line-height: 0;
-    }
-
-    .btn-download {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      background: var(--orange);
-      color: #fff;
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      padding: 0.625rem 1.6rem;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      transition: background 0.18s;
-    }
-
-    .btn-download:hover { background: var(--orange-lt); }
-
     /* ── Footer text ── */
     .pg-footer {
       margin-top: 2.25rem;
@@ -390,7 +342,7 @@
       </a>
 
       <!-- Facebook -->
-      <a class="link-btn" href="https://www.facebook.com/7daymuffler" target="_blank" rel="noopener">
+      <a class="link-btn" href="https://www.facebook.com/profile.php?id=61590888117216" target="_blank" rel="noopener">
         <div class="btn-stripe" style="background:#1877F2;"></div>
         <div class="btn-icon">
           <svg width="38" height="38" viewBox="0 0 32 32" fill="none">
@@ -452,7 +404,7 @@
         </svg>
       </a>
       <!-- Facebook -->
-      <a href="https://www.facebook.com/7daymuffler" target="_blank" rel="noopener" aria-label="Facebook">
+      <a href="https://www.facebook.com/profile.php?id=61590888117216" target="_blank" rel="noopener" aria-label="Facebook">
         <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
           <rect width="32" height="32" rx="8" fill="#1877F2"/>
           <path d="M17.8 26V17.4h2.9l.44-3.38H17.8v-2.16c0-.98.27-1.65 1.67-1.65H21.2V7.14A22.6 22.6 0 0 0 18.5 7c-2.57 0-4.33 1.57-4.33 4.45v2.57H11.2v3.38h2.97V26H17.8Z" fill="white"/>
@@ -478,14 +430,7 @@
       </a>
     </div>
 
-    <!-- QR Code -->
-    <div class="qr-section fade-up delay-6">
-      <div class="qr-eyebrow">Scan to share this page</div>
-      <div id="qr-output"></div>
-      <button class="btn-download" onclick="downloadQR()">&#8595; Download QR Code</button>
-    </div>
-
-    <div class="pg-footer fade-up delay-7">
+    <div class="pg-footer fade-up delay-6">
       7 Day Muffler &amp; Auto Repair<br>
       8032 Main St, Stanton CA 90680<br>
       <span>In Business Since 1988</span>
@@ -493,38 +438,5 @@
 
   </div>
 
-  <script>
-    // Generate QR for this page's URL
-    (function () {
-      const url = window.location.href.replace(/[?#].*$/, '');
-      new QRCode(document.getElementById('qr-output'), {
-        text: url,
-        width: 176,
-        height: 176,
-        colorDark: '#0A0A0C',
-        colorLight: '#FFFFFF',
-        correctLevel: QRCode.CorrectLevel.H
-      });
-    })();
-
-    function downloadQR() {
-      // qrcodejs renders a canvas (most browsers) or falls back to img
-      const canvas = document.querySelector('#qr-output canvas');
-      if (canvas) {
-        const a = document.createElement('a');
-        a.href = canvas.toDataURL('image/png');
-        a.download = '7daymuffler-connect-qr.png';
-        a.click();
-        return;
-      }
-      const img = document.querySelector('#qr-output img');
-      if (img) {
-        const a = document.createElement('a');
-        a.href = img.src;
-        a.download = '7daymuffler-connect-qr.png';
-        a.click();
-      }
-    }
-  </script>
 </body>
 </html>
