@@ -264,15 +264,19 @@
     .gallery-cta-sub { font-size: 0.95rem; color: rgba(240,239,232,0.6); font-weight: 300; line-height: 1.65; margin-top: 0.6rem; }
 
     @media (max-width: 900px) {
-      .g-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: 220px; }
-      .g-item.featured { grid-column: span 2; grid-row: span 1; }
+      .g-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: 240px; }
+      .g-item.featured { grid-column: span 2; grid-row: span 2; }
       .g-item.tall { grid-row: span 1; }
       .g-item.wide { grid-column: span 2; }
       .gallery-cta-inner { grid-template-columns: 1fr; }
     }
     @media (max-width: 520px) {
-      .g-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
-      .g-item.featured, .g-item.wide, .g-item.tall { grid-column: span 1; grid-row: span 1; }
+      .g-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: 200px; gap: 5px; }
+      .g-item.featured { grid-column: span 2; grid-row: span 2; }
+      .g-item.wide { grid-column: span 2; }
+      .g-item.tall { grid-row: span 1; }
+      .g-title { font-size: 1.2rem; }
+      .g-sub { font-size: 0.58rem; }
       .lb-arrow { display: none; }
     }
   </style>
@@ -381,11 +385,53 @@
       </div>
     </div>
 
-    <!-- 02 — Wide -->
-    <div class="g-item wide reveal" data-a="left" data-cat="exhaust builds" data-idx="9">
-      <img src="brand_assets/gallery-pics/IMG-20260527-WA0006.jpg" alt="Dual muffler system" loading="lazy">
+    <!-- 02 -->
+    <div class="g-item reveal" data-a="right" data-cat="exhaust builds" data-idx="1">
+      <img src="brand_assets/gallery-pics/IMG-20260613-WA0002.jpg" alt="Chrome exhaust tip" loading="lazy">
       <div class="g-corner"></div>
       <div class="g-num">02</div>
+      <div class="g-expand">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      </div>
+      <div class="g-ov">
+        <div class="g-title">Chrome Exhaust Tip</div>
+        <div class="g-sub">Exhaust · Custom Build</div>
+      </div>
+    </div>
+
+    <!-- 03 — Wide -->
+    <div class="g-item wide reveal" data-a="left" data-cat="exhaust builds" data-idx="2">
+      <img src="brand_assets/gallery-pics/IMG-20260613-WA0003.jpg" alt="Full undercarriage exhaust system" loading="lazy">
+      <div class="g-corner"></div>
+      <div class="g-num">03</div>
+      <div class="g-expand">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      </div>
+      <div class="g-ov">
+        <div class="g-title">Full Undercarriage System</div>
+        <div class="g-sub">Exhaust · Custom Build</div>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="g-item reveal" data-a="right" data-cat="exhaust builds" data-idx="3">
+      <img src="brand_assets/gallery-pics/IMG-20260613-WA0004.jpg" alt="Exhaust pipe routing" loading="lazy">
+      <div class="g-corner"></div>
+      <div class="g-num">04</div>
+      <div class="g-expand">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      </div>
+      <div class="g-ov">
+        <div class="g-title">Exhaust Pipe Routing</div>
+        <div class="g-sub">Exhaust · Undercarriage</div>
+      </div>
+    </div>
+
+    <!-- 05 — Wide -->
+    <div class="g-item wide reveal" data-a="left" data-cat="exhaust builds" data-idx="12">
+      <img src="brand_assets/gallery-pics/IMG-20260527-WA0006.jpg" alt="Dual muffler system" loading="lazy">
+      <div class="g-corner"></div>
+      <div class="g-num">05</div>
       <div class="g-expand">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
@@ -395,11 +441,11 @@
       </div>
     </div>
 
-    <!-- 03 -->
-    <div class="g-item reveal" data-a="right" data-cat="exhaust builds" data-idx="10">
+    <!-- 06 -->
+    <div class="g-item reveal" data-a="right" data-cat="exhaust builds" data-idx="13">
       <img src="brand_assets/gallery-pics/IMG-20260527-WA0007.jpg" alt="Custom exhaust piping" loading="lazy">
       <div class="g-corner"></div>
-      <div class="g-num">03</div>
+      <div class="g-num">06</div>
       <div class="g-expand">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
@@ -409,11 +455,11 @@
       </div>
     </div>
 
-    <!-- 04 -->
-    <div class="g-item reveal" data-a="left" data-cat="exhaust builds" data-idx="11">
+    <!-- 07 -->
+    <div class="g-item reveal" data-a="left" data-cat="exhaust builds" data-idx="14">
       <img src="brand_assets/gallery-pics/IMG-20260527-WA0008.jpg" alt="Muffler installation" loading="lazy">
       <div class="g-corner"></div>
-      <div class="g-num">04</div>
+      <div class="g-num">07</div>
       <div class="g-expand">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
@@ -423,11 +469,11 @@
       </div>
     </div>
 
-    <!-- 05 -->
-    <div class="g-item reveal" data-cat="shop" data-idx="1">
+    <!-- 08 -->
+    <div class="g-item reveal" data-cat="shop" data-idx="4">
       <img src="brand_assets/gallery-pics/display.jpg" alt="Exhaust display" loading="lazy">
       <div class="g-corner"></div>
-      <div class="g-num">05</div>
+      <div class="g-num">08</div>
       <div class="g-expand">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
@@ -437,11 +483,11 @@
       </div>
     </div>
 
-    <!-- 06 -->
-    <div class="g-item reveal" data-a="right" data-cat="exhaust" data-idx="2">
+    <!-- 09 -->
+    <div class="g-item reveal" data-a="right" data-cat="exhaust" data-idx="5">
       <img src="brand_assets/gallery-pics/anothekdsd.jpg" alt="Muffler work" loading="lazy">
       <div class="g-corner"></div>
-      <div class="g-num">06</div>
+      <div class="g-num">09</div>
       <div class="g-expand">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
@@ -451,11 +497,11 @@
       </div>
     </div>
 
-    <!-- 07 — Wide -->
-    <div class="g-item wide reveal" data-a="left" data-cat="shop builds" data-idx="3">
+    <!-- 10 — Wide -->
+    <div class="g-item wide reveal" data-a="left" data-cat="shop builds" data-idx="6">
       <img src="brand_assets/gallery-pics/o (7).jpg" alt="Quality parts" loading="lazy">
       <div class="g-corner"></div>
-      <div class="g-num">07</div>
+      <div class="g-num">10</div>
       <div class="g-expand">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
@@ -465,11 +511,11 @@
       </div>
     </div>
 
-    <!-- 08 -->
-    <div class="g-item reveal" data-a="right" data-cat="builds" data-idx="4">
+    <!-- 11 -->
+    <div class="g-item reveal" data-a="right" data-cat="builds" data-idx="7">
       <img src="brand_assets/gallery-pics/hf_20260506_025255_48e3233a-022f-4778-9fdb-dcbfb3ce9c1b.png" alt="Performance build" loading="lazy">
       <div class="g-corner"></div>
-      <div class="g-num">08</div>
+      <div class="g-num">11</div>
       <div class="g-expand">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
@@ -479,11 +525,11 @@
       </div>
     </div>
 
-    <!-- 09 -->
-    <div class="g-item reveal" data-a="left" data-cat="exhaust builds" data-idx="5">
+    <!-- 12 -->
+    <div class="g-item reveal" data-a="left" data-cat="exhaust builds" data-idx="8">
       <img src="brand_assets/gallery-pics/hf_20260506_025327_67d7de3d-ce84-48d8-925c-d5b839a4f699.png" alt="Exhaust fabrication" loading="lazy">
       <div class="g-corner"></div>
-      <div class="g-num">09</div>
+      <div class="g-num">12</div>
       <div class="g-expand">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
@@ -493,11 +539,11 @@
       </div>
     </div>
 
-    <!-- 10 — Wide -->
-    <div class="g-item wide reveal" data-a="left" data-cat="exhaust builds" data-idx="6">
+    <!-- 13 — Wide -->
+    <div class="g-item wide reveal" data-a="left" data-cat="exhaust builds" data-idx="9">
       <img src="brand_assets/gallery-pics/o (8).jpg" alt="Dodge Challenger custom exhaust" loading="lazy">
       <div class="g-corner"></div>
-      <div class="g-num">10</div>
+      <div class="g-num">13</div>
       <div class="g-expand">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
@@ -507,11 +553,11 @@
       </div>
     </div>
 
-    <!-- 11 -->
-    <div class="g-item reveal" data-a="right" data-cat="exhaust builds" data-idx="7">
+    <!-- 14 -->
+    <div class="g-item reveal" data-a="right" data-cat="exhaust builds" data-idx="10">
       <img src="brand_assets/gallery-pics/o (9).jpg" alt="Full exhaust system" loading="lazy">
       <div class="g-corner"></div>
-      <div class="g-num">11</div>
+      <div class="g-num">14</div>
       <div class="g-expand">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
@@ -521,11 +567,11 @@
       </div>
     </div>
 
-    <!-- 12 -->
-    <div class="g-item reveal" data-a="left" data-cat="builds" data-idx="8">
+    <!-- 15 -->
+    <div class="g-item reveal" data-a="left" data-cat="builds" data-idx="11">
       <img src="brand_assets/gallery-pics/E4F.jpg" alt="Classic build" loading="lazy">
       <div class="g-corner"></div>
-      <div class="g-num">12</div>
+      <div class="g-num">15</div>
       <div class="g-expand">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
       </div>
@@ -670,6 +716,9 @@
   /* ── Lightbox ── */
   const images = [
     { src: 'brand_assets/gallery-pics/fthfth.jpg',                                                           title: 'Custom Exhaust System' },
+    { src: 'brand_assets/gallery-pics/IMG-20260613-WA0002.jpg',                                               title: 'Chrome Exhaust Tip' },
+    { src: 'brand_assets/gallery-pics/IMG-20260613-WA0003.jpg',                                               title: 'Full Undercarriage System' },
+    { src: 'brand_assets/gallery-pics/IMG-20260613-WA0004.jpg',                                               title: 'Exhaust Pipe Routing' },
     { src: 'brand_assets/gallery-pics/display.jpg',                                                          title: 'Exhaust Selection' },
     { src: 'brand_assets/gallery-pics/anothekdsd.jpg',                                                       title: 'Muffler Install' },
     { src: 'brand_assets/gallery-pics/o (7).jpg',                                                            title: 'Quality Parts & Builds' },
