@@ -424,6 +424,672 @@
   </div>
 </footer>
 
+<!-- ═══════════════ SCRATCH-TO-CLAIM POPUP ═══════════════
+     All classes prefixed popup-7dm- to avoid collisions with site styles.
+     Trigger: 5 seconds after page load.
+     Collapses to sidebar tab on X; fully dismissible from tab's own X.
+     Once code is revealed, localStorage(7dm_popup_claimed) prevents re-show.
+─────────────────────────────────────────────────────────── -->
+<style>
+/* ── Overlay — explicit 100vw/100vh so it never depends on document size ── */
+.popup-7dm-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+.popup-7dm-overlay.popup-7dm-active { opacity: 1; pointer-events: all; }
+.popup-7dm-gone { display: none !important; }
+
+/* Background — explicit width/height so it's always viewport-sized, never document-sized */
+.popup-7dm-bg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  background: radial-gradient(ellipse at 38% 28%, #F26522 0%, #9B3A0A 32%, #050508 72%);
+}
+
+/* ── Close (X) button — collapses to tab, does NOT fully dismiss ── */
+.popup-7dm-x {
+  position: absolute; top: 1.25rem; right: 1.25rem; z-index: 20;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.8); font-size: 1rem; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  transition: background 0.18s ease, color 0.18s ease;
+}
+.popup-7dm-x:hover { background: rgba(255,255,255,0.16); color: #fff; }
+
+/* ── Logo — pinned top-center through both screens ── */
+.popup-7dm-logo {
+  position: absolute; top: 1.25rem; left: 50%; transform: translateX(-50%); z-index: 20;
+}
+.popup-7dm-logo img {
+  height: 80px; width: auto;
+  filter: drop-shadow(0 4px 20px rgba(0,0,0,0.7));
+}
+
+/* ── Shared screen container ── */
+.popup-7dm-screen {
+  position: relative; z-index: 5;
+  width: 100%; max-width: 440px;
+  padding: 0 2rem; text-align: center;
+  margin-top: 68px;
+  transition: opacity 0.38s ease;
+}
+
+/* ══ SCREEN 1 — Email Capture ══ */
+.popup-7dm-headline {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(2.6rem, 9vw, 4.2rem);
+  line-height: 0.9; letter-spacing: -0.01em;
+  color: #fff; margin-bottom: 0.875rem;
+}
+.popup-7dm-sub {
+  font-size: 0.95rem; color: rgba(255,255,255,0.68);
+  font-weight: 300; line-height: 1.65;
+  max-width: 340px; margin: 0 auto 1.75rem;
+}
+
+/* Glowing input — adapted from 21st.dev "Glowing Input":
+   radial orange glow emanates from field edges on focus */
+.popup-7dm-field {
+  position: relative; margin-bottom: 0.75rem;
+}
+.popup-7dm-field::before {
+  content: '';
+  position: absolute; inset: -5px; border-radius: 3px;
+  background: radial-gradient(ellipse at center, rgba(242,101,34,0.38) 0%, transparent 68%);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.popup-7dm-field:focus-within::before { opacity: 1; }
+.popup-7dm-email {
+  width: 100%;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: #F0EFE8;
+  font-family: 'DM Sans', sans-serif; font-size: 1rem;
+  padding: 0.95rem 1.25rem;
+  outline: none; border-radius: 0;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+.popup-7dm-email::placeholder { color: rgba(240,239,232,0.38); }
+.popup-7dm-email:focus {
+  border-color: #F26522;
+  background: rgba(255,255,255,0.10);
+  box-shadow: 0 0 0 3px rgba(242,101,34,0.15), 0 0 32px rgba(242,101,34,0.10);
+}
+
+/* Inline error */
+.popup-7dm-err {
+  min-height: 1.1em; font-size: 0.75rem; color: #f87171;
+  text-align: left; margin-bottom: 0.5rem;
+}
+
+/* Glow button — adapted from 21st.dev "Glow Button":
+   radial box-shadow bloom + sliding sheen on hover */
+.popup-7dm-btn {
+  width: 100%;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  background: #F26522; color: #fff;
+  font-family: 'Oswald', sans-serif; font-weight: 600;
+  font-size: 0.9rem; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 1rem 2rem; border: none; border-radius: 0; cursor: pointer;
+  position: relative; overflow: hidden;
+  box-shadow: 0 0 44px rgba(242,101,34,0.5), 0 8px 24px rgba(0,0,0,0.35);
+  transition: background 0.18s ease,
+              transform 0.2s cubic-bezier(0.34,1.56,0.64,1),
+              box-shadow 0.18s ease;
+  margin-bottom: 0.875rem;
+}
+.popup-7dm-btn::after {
+  content: ''; position: absolute; top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: skewX(-20deg); transition: left 0.5s ease; pointer-events: none;
+}
+.popup-7dm-btn:hover {
+  background: #E8641F; transform: translateY(-2px);
+  box-shadow: 0 0 70px rgba(242,101,34,0.75), 0 14px 36px rgba(0,0,0,0.45);
+}
+.popup-7dm-btn:hover::after { left: 160%; }
+.popup-7dm-btn:active { transform: translateY(0); }
+.popup-7dm-btn:focus-visible { outline: 2px solid #F26522; outline-offset: 3px; }
+
+/* Compliance fine print */
+.popup-7dm-legal {
+  font-size: 0.62rem; color: rgba(255,255,255,0.3);
+  line-height: 1.55; max-width: 320px; margin: 0 auto;
+}
+
+/* ══ SCREEN 2 — Scratch to Reveal ══ */
+.popup-7dm-scratch-head {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(2.2rem, 8vw, 3.2rem); letter-spacing: 0.06em; line-height: 1;
+  /* Orange gradient text — same treatment as the revealed code */
+  background: linear-gradient(110deg, #FF8C42 0%, #FFD166 50%, #F26522 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  filter: drop-shadow(0 0 14px rgba(242,101,34,0.4));
+  margin-bottom: 1.25rem;
+  transition: opacity 0.35s ease;
+}
+/* Larger "10% OFF!" line injected after reveal */
+.popup-7dm-prize-line {
+  display: block; line-height: 0.88;
+  font-size: 1.55em; letter-spacing: 0.04em;
+  background: linear-gradient(110deg, #FFD166 0%, #FF8C42 50%, #FFD166 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: popup7dmGlow 2.4s ease-in-out infinite;
+}
+/* Gold scratch-card container */
+.popup-7dm-card {
+  position: relative; width: 280px; height: 112px;
+  margin: 0 auto 1.5rem; border-radius: 8px; overflow: hidden;
+  box-shadow: 0 0 40px rgba(242,101,34,0.3), 0 8px 32px rgba(0,0,0,0.5);
+}
+/* Discount code beneath the scratch surface */
+.popup-7dm-code {
+  position: absolute; inset: 0; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #1A1C28, #0D0F1A);
+  border: 2px solid rgba(242,101,34,0.45);
+  user-select: all;
+}
+/* Gradient text treatment on the revealed code */
+.popup-7dm-code-inner {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(3rem, 14vw, 4.8rem);
+  letter-spacing: 0.2em; line-height: 1;
+  background: linear-gradient(135deg, #FF8C42 0%, #FFD166 45%, #F26522 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  animation: popup7dmGlow 2.4s ease-in-out infinite;
+}
+@keyframes popup7dmGlow {
+  0%,100% { filter: drop-shadow(0 0 16px rgba(242,101,34,0.55)); }
+  50%     { filter: drop-shadow(0 0 34px rgba(242,101,34,0.95)) drop-shadow(0 0 60px rgba(255,200,80,0.45)); }
+}
+/* Canvas on top — scratch-off surface */
+.popup-7dm-canvas {
+  position: absolute; inset: 0; border-radius: 8px;
+  cursor: crosshair; touch-action: none;
+  transition: opacity 0.5s ease;
+}
+.popup-7dm-redeem {
+  font-size: 1.1rem; color: #fff;
+  line-height: 1.65; max-width: 320px; margin: 0.5rem auto 0;
+  font-weight: 500; transition: opacity 0.4s ease;
+  text-shadow: 0 2px 14px rgba(0,0,0,0.7);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 0.75rem 1.1rem;
+}
+/* Tap-to-save hint */
+.popup-7dm-save-hint {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #FFD166; margin: 0.25rem auto 1rem;
+  text-shadow: 0 0 18px rgba(255,180,60,0.7);
+  font-weight: 600;
+  animation: popup7dmPulseHint 1.8s ease-in-out infinite;
+  transition: opacity 0.35s ease;
+}
+@keyframes popup7dmPulseHint {
+  0%,100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+/* Code box becomes tappable after reveal */
+.popup-7dm-code.popup-7dm-tappable {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.popup-7dm-code.popup-7dm-tappable:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 48px rgba(242,101,34,0.55), 0 8px 32px rgba(0,0,0,0.5);
+}
+.popup-7dm-code.popup-7dm-tappable:active { transform: scale(0.97); }
+
+/* ── Sidebar tab — position:fixed keeps it glued to viewport edge as you scroll ── */
+.popup-7dm-tab {
+  position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+  z-index: 10000; display: flex; flex-direction: column; align-items: stretch;
+}
+.popup-7dm-tab-open {
+  background: #F26522; color: #fff; border: none; cursor: pointer;
+  writing-mode: vertical-rl; text-orientation: mixed;
+  font-family: 'Oswald', sans-serif; font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 1.1rem 0.55rem; border-radius: 5px 0 0 0;
+  transition: background 0.18s ease;
+}
+.popup-7dm-tab-open:hover { background: #D95C1E; }
+/* Small X on tab — fully dismisses popup + tab for this visit */
+.popup-7dm-tab-kill {
+  background: rgba(20,22,34,0.95); color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.09); border-right: none; border-top: none;
+  cursor: pointer; font-size: 0.65rem; text-align: center;
+  padding: 0.35rem 0.5rem; border-radius: 0 0 0 5px;
+  transition: color 0.18s ease;
+}
+.popup-7dm-tab-kill:hover { color: #fff; }
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .popup-7dm-logo img { height: 60px; }
+  .popup-7dm-screen { padding: 0 1.25rem; margin-top: 52px; }
+  .popup-7dm-card { width: min(280px, 82vw); }
+}
+</style>
+
+<!-- Mailchimp hidden iframe — form POSTs here to bypass CORS restriction -->
+<iframe name="p7dm_mc" id="p7dm_mc" style="display:none;" aria-hidden="true" title="form-submit"></iframe>
+
+<!-- ── Full-screen overlay ── -->
+<div id="p7dm" class="popup-7dm-overlay popup-7dm-gone"
+     role="dialog" aria-modal="true" aria-label="Exclusive discount offer from 7 Day Muffler">
+  <div class="popup-7dm-bg" aria-hidden="true"></div>
+
+  <!-- X → collapses to sidebar tab -->
+  <button class="popup-7dm-x" id="p7dm-x" aria-label="Minimize offer">✕</button>
+
+  <!-- Logo: stays top-center on both screens -->
+  <div class="popup-7dm-logo" aria-hidden="true">
+    <img src="brand_assets/gallery-pics/7daylogomuffler-removebg-preview.png" alt="7 Day Muffler">
+  </div>
+
+  <!-- ── Screen 1: Email Capture ── -->
+  <div class="popup-7dm-screen" id="p7dm-s1">
+    <h2 class="popup-7dm-headline">Exclusive Deal,<br><span style="color:#F26522;">Just For You</span></h2>
+    <p class="popup-7dm-sub">Enter your email to unlock a special discount on any service at 7 Day Muffler.</p>
+
+    <form id="p7dm-form" method="POST" target="p7dm_mc" novalidate>
+      <!-- Mailchimp hidden fields — values injected by JS config constants below -->
+      <input type="hidden" name="u"  id="p7dm-u"  value="">
+      <input type="hidden" name="id" id="p7dm-id" value="">
+      <!-- Honeypot — name set by JS to b_{u}_{id}; left empty to trap bots -->
+      <input type="text" id="p7dm-hp" tabindex="-1" value=""
+             style="position:absolute;left:-5000px;top:-5000px;" aria-hidden="true">
+
+      <div class="popup-7dm-field">
+        <input type="email" name="EMAIL" id="p7dm-email" class="popup-7dm-email"
+               placeholder="Your email address" autocomplete="email">
+      </div>
+      <div class="popup-7dm-err" id="p7dm-err" role="alert"></div>
+
+      <button type="submit" class="popup-7dm-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+        </svg>
+        Unlock Your Discount
+      </button>
+      <p class="popup-7dm-legal">By submitting, you agree to receive promotional emails from 7 Day Muffler. Unsubscribe anytime.</p>
+    </form>
+  </div>
+
+  <!-- ── Screen 2: Scratch to Reveal ── -->
+  <div class="popup-7dm-screen popup-7dm-gone" id="p7dm-s2">
+    <p class="popup-7dm-scratch-head" id="p7dm-slabel">Scratch to Claim</p>
+
+    <div class="popup-7dm-card">
+      <!-- Code is beneath the canvas; exposed as user scratches -->
+      <div class="popup-7dm-code" id="p7dm-code-box" aria-label="Discount code SAVE10 — tap to save">
+        <span class="popup-7dm-code-inner">SAVE10</span>
+      </div>
+      <canvas id="p7dm-canvas" class="popup-7dm-canvas"
+              width="280" height="112"
+              aria-label="Scratch here to reveal your discount code"></canvas>
+    </div>
+
+    <!-- Tap-to-save hint — hidden until code is revealed -->
+    <p class="popup-7dm-save-hint popup-7dm-gone" id="p7dm-save-hint" aria-live="polite">
+      ↓ Tap the code to save it to your phone
+    </p>
+
+    <p class="popup-7dm-redeem popup-7dm-gone" id="p7dm-redeem">
+      Redeem your 10% off on any service — just save the card above and show it when you visit.
+    </p>
+  </div>
+</div>
+
+<!-- ── Sidebar tab — shown while popup is collapsed ── -->
+<div class="popup-7dm-tab popup-7dm-gone" id="p7dm-tab">
+  <button class="popup-7dm-tab-open" id="p7dm-tab-open" aria-label="Reopen discount offer">
+    SCRATCH TO CLAIM
+  </button>
+  <button class="popup-7dm-tab-kill" id="p7dm-tab-kill" aria-label="Dismiss offer">✕</button>
+</div>
+
+<script>
+(function () {
+  /* ═══════════════════════════════════════════════════════════
+     MAILCHIMP CONFIG — fill these three values before deploying.
+     Mailchimp → Audience → Signup Forms → Embedded Forms
+     Copy the <form action="..."> URL plus the u= and id= hidden inputs.
+  ═══════════════════════════════════════════════════════════ */
+  var MC_ACTION = 'PASTE_ACTION_URL_HERE';
+  var MC_U      = 'PASTE_U_PARAM_HERE';
+  var MC_ID     = 'PASTE_LIST_ID_HERE';
+
+  /* Discount code displayed on screen 2 — one-line change to rotate */
+  var DISCOUNT_CODE = 'SAVE10';
+
+  /* localStorage key: set to "true" after code is revealed; hides popup forever */
+  var CLAIMED_KEY = '7dm_popup_claimed';
+
+  /* Milliseconds before popup appears on page load */
+  var TRIGGER_MS = 5000;
+
+  /* ── Guards: skip only on the /connect QR page ── */
+  if (window.location.pathname.toLowerCase().indexOf('connect') !== -1) return;
+
+  /* ── Element refs ── */
+  var overlay = document.getElementById('p7dm');
+  var s1      = document.getElementById('p7dm-s1');
+  var s2      = document.getElementById('p7dm-s2');
+  var xBtn    = document.getElementById('p7dm-x');
+  var form    = document.getElementById('p7dm-form');
+  var emailIn = document.getElementById('p7dm-email');
+  var errEl   = document.getElementById('p7dm-err');
+  var iframe  = document.getElementById('p7dm_mc');
+  var canvas  = document.getElementById('p7dm-canvas');
+  var tab     = document.getElementById('p7dm-tab');
+  var tabOpen = document.getElementById('p7dm-tab-open');
+  var tabKill = document.getElementById('p7dm-tab-kill');
+  var sLabel    = document.getElementById('p7dm-slabel');
+  var redeemP   = document.getElementById('p7dm-redeem');
+  var saveHint  = document.getElementById('p7dm-save-hint');
+  var codeBox   = document.getElementById('p7dm-code-box');
+
+  /* Inject Mailchimp config into form */
+  form.action = MC_ACTION;
+  document.getElementById('p7dm-u').value  = MC_U;
+  document.getElementById('p7dm-id').value = MC_ID;
+  document.getElementById('p7dm-hp').name  = 'b_' + MC_U + '_' + MC_ID;
+
+  /* Move popup elements to <html> so the body's CSS animation transform
+     (pageEnter: translateY 5px→none) cannot break position:fixed */
+  document.documentElement.appendChild(overlay);
+  document.documentElement.appendChild(tab);
+
+  /* ── Utility ── */
+  function show(el) { el.classList.remove('popup-7dm-gone'); }
+  function hide(el) { el.classList.add('popup-7dm-gone'); }
+
+  /* ── Open / collapse / dismiss ── */
+  function openPopup() {
+    hide(tab);
+    show(overlay);
+    requestAnimationFrame(function () { overlay.classList.add('popup-7dm-active'); });
+  }
+
+  function collapseToTab() {
+    overlay.classList.remove('popup-7dm-active');
+    setTimeout(function () { hide(overlay); show(tab); }, 440);
+  }
+
+  function dismissAll() {
+    overlay.classList.remove('popup-7dm-active');
+    setTimeout(function () { hide(overlay); }, 440);
+    hide(tab);
+  }
+
+  /* Prevent mouse wheel and touch from scrolling the page through the overlay */
+  overlay.addEventListener('wheel',     function(e){ e.preventDefault(); }, { passive: false });
+  overlay.addEventListener('touchmove', function(e){ e.preventDefault(); }, { passive: false });
+
+  /* ── Email validation ── */
+  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+
+  /* ── Form submit via hidden iframe (avoids Mailchimp CORS error) ── */
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!isEmail(emailIn.value)) {
+      errEl.textContent = 'Please enter a valid email address.';
+      emailIn.focus();
+      return;
+    }
+    errEl.textContent = '';
+
+    /* iframe load fires when Mailchimp response arrives */
+    iframe.addEventListener('load', function onLoad() {
+      iframe.removeEventListener('load', onLoad);
+      goScreen2();
+    }, { once: true });
+
+    form.submit();
+  });
+
+  /* ── Screen 1 → Screen 2 soft fade ── */
+  function goScreen2() {
+    s1.style.opacity = '0';
+    setTimeout(function () {
+      hide(s1);
+      s1.style.opacity = '';
+      show(s2);
+      s2.style.opacity = '0';
+      /* Double-RAF: ensures display:block is rendered before fade-in starts */
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          s2.style.transition = 'opacity 0.4s ease';
+          s2.style.opacity    = '1';
+          /* Size canvas to match card's actual rendered width/height */
+          var card      = canvas.parentElement;
+          canvas.width  = card.offsetWidth  || 280;
+          canvas.height = card.offsetHeight || 112;
+          paintCanvas();
+        });
+      });
+    }, 380);
+  }
+
+  /* ── Scratch-off canvas ── */
+  function paintCanvas() {
+    if (canvas.dataset.painted) return;
+    canvas.dataset.painted = '1';
+
+    var ctx = canvas.getContext('2d');
+    var W = canvas.width, H = canvas.height;
+
+    /* Gold gradient scratch surface */
+    var grad = ctx.createLinearGradient(0, 0, W, H);
+    grad.addColorStop(0,    '#DFA020');
+    grad.addColorStop(0.38, '#F5C842');
+    grad.addColorStop(0.68, '#C8861A');
+    grad.addColorStop(1,    '#B07010');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    /* Horizontal grain lines for texture */
+    ctx.strokeStyle = 'rgba(255,255,255,0.10)';
+    ctx.lineWidth = 1;
+    for (var y = 0; y < H; y += 3) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    }
+
+    /* "SCRATCH HERE" hint text on the gold surface */
+    ctx.fillStyle = 'rgba(100,55,0,0.5)';
+    ctx.font = '600 11px Oswald, Arial, sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('✶  SCRATCH HERE  ✶', W / 2, H / 2);
+
+    var drawing = false;
+
+    function getXY(e) {
+      var r = canvas.getBoundingClientRect();
+      var src = e.touches ? e.touches[0] : e;
+      return {
+        x: (src.clientX - r.left) * (W / r.width),
+        y: (src.clientY - r.top)  * (H / r.height)
+      };
+    }
+
+    function erase(e) {
+      if (!drawing) return;
+      var p = getXY(e);
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 26, 0, Math.PI * 2);
+      ctx.fill();
+      checkReveal();
+    }
+
+    /* Sample every 4th pixel's alpha channel — auto-reveal at 60% cleared */
+    function checkReveal() {
+      var d = ctx.getImageData(0, 0, W, H).data;
+      var cleared = 0;
+      for (var i = 3; i < d.length; i += 4) { if (d[i] === 0) cleared++; }
+      if (cleared / (W * H) >= 0.60) autoReveal();
+    }
+
+    function autoReveal() {
+      offListeners();
+      /* Fade out the gold canvas layer */
+      canvas.style.opacity = '0';
+      setTimeout(function () {
+        canvas.style.display = 'none';
+        /* Swap label to a big two-line announcement of what they won */
+        sLabel.style.opacity = '0';
+        setTimeout(function () {
+          sLabel.innerHTML = 'YOU JUST GOT<br><span class="popup-7dm-prize-line">10% OFF!</span>';
+          sLabel.style.opacity = '1';
+        }, 220);
+        /* Fade in redeem instructions */
+        redeemP.style.opacity = '0';
+        show(redeemP);
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { redeemP.style.opacity = '1'; });
+        });
+        /* Show tap-to-save hint and wire the code box */
+        saveHint.style.opacity = '0';
+        show(saveHint);
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { saveHint.style.opacity = '1'; });
+        });
+        codeBox.classList.add('popup-7dm-tappable');
+        codeBox.addEventListener('click', function onCodeTap() {
+          saveCodeCard(DISCOUNT_CODE);
+          /* Confirm with a quick flash on the hint text */
+          saveHint.textContent = '✓ Saved! Open your downloads to find it';
+          saveHint.style.animation = 'none';
+          saveHint.style.opacity   = '1';
+        });
+        /* Popup shows on every visit — no localStorage suppression */
+      }, 480);
+    }
+
+    /* Generate a branded card PNG and download it */
+    function saveCodeCard(code) {
+      var W = 800, H = 420;
+      var c = document.createElement('canvas');
+      c.width = W; c.height = H;
+      var cx = c.getContext('2d');
+
+      /* Dark background */
+      cx.fillStyle = '#0D0F1A';
+      cx.fillRect(0, 0, W, H);
+
+      /* Orange accent bar at top */
+      var bar = cx.createLinearGradient(0, 0, W, 0);
+      bar.addColorStop(0, '#F26522');
+      bar.addColorStop(1, '#FFD166');
+      cx.fillStyle = bar;
+      cx.fillRect(0, 0, W, 8);
+
+      /* Shop name */
+      cx.fillStyle = 'rgba(255,255,255,0.55)';
+      cx.font = '500 22px Oswald, Arial, sans-serif';
+      cx.textAlign = 'center';
+      cx.fillText('7 DAY MUFFLER & AUTO REPAIR', W / 2, 58);
+
+      /* Code label */
+      cx.fillStyle = 'rgba(255,255,255,0.45)';
+      cx.font = '400 16px Oswald, Arial, sans-serif';
+      cx.letterSpacing = '0.18em';
+      cx.fillText('YOUR DISCOUNT CODE', W / 2, 110);
+
+      /* Big gradient code text */
+      var codeGrad = cx.createLinearGradient(0, 120, W, 240);
+      codeGrad.addColorStop(0, '#FF8C42');
+      codeGrad.addColorStop(0.45, '#FFD166');
+      codeGrad.addColorStop(1, '#F26522');
+      cx.fillStyle = codeGrad;
+      cx.font = 'bold 130px "Bebas Neue", Impact, Arial Black, sans-serif';
+      cx.fillText(code, W / 2, 255);
+
+      /* Divider */
+      cx.strokeStyle = 'rgba(242,101,34,0.35)';
+      cx.lineWidth = 1;
+      cx.beginPath(); cx.moveTo(60, 285); cx.lineTo(W - 60, 285); cx.stroke();
+
+      /* Redeem line */
+      cx.fillStyle = 'rgba(255,255,255,0.75)';
+      cx.font = '400 20px "DM Sans", Arial, sans-serif';
+      cx.fillText('Show this at 7 Day Muffler — 10% off any service', W / 2, 328);
+
+      /* Address/tagline */
+      cx.fillStyle = 'rgba(255,255,255,0.35)';
+      cx.font = '400 15px "DM Sans", Arial, sans-serif';
+      cx.fillText('Stanton, CA  ·  7daymuffler.com', W / 2, 370);
+
+      /* Orange accent bar at bottom */
+      cx.fillStyle = bar;
+      cx.fillRect(0, H - 8, W, 8);
+
+      /* Trigger download */
+      var link = document.createElement('a');
+      link.download = '7-day-muffler-discount-code.png';
+      link.href = c.toDataURL('image/png');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function start(e)  { e.preventDefault(); drawing = true; erase(e); }
+    function stop()    { drawing = false; }
+
+    function onListeners() {
+      canvas.addEventListener('mousedown',  start);
+      canvas.addEventListener('mousemove',  erase);
+      canvas.addEventListener('mouseup',    stop);
+      canvas.addEventListener('mouseleave', stop);
+      canvas.addEventListener('touchstart', start, { passive: false });
+      canvas.addEventListener('touchmove',  erase, { passive: false });
+      canvas.addEventListener('touchend',   stop);
+    }
+    function offListeners() {
+      canvas.removeEventListener('mousedown',  start);
+      canvas.removeEventListener('mousemove',  erase);
+      canvas.removeEventListener('mouseup',    stop);
+      canvas.removeEventListener('mouseleave', stop);
+      canvas.removeEventListener('touchstart', start);
+      canvas.removeEventListener('touchmove',  erase);
+      canvas.removeEventListener('touchend',   stop);
+    }
+    onListeners();
+  }
+
+  /* ── Wire buttons ── */
+  xBtn.addEventListener('click',    collapseToTab);
+  tabOpen.addEventListener('click', openPopup);
+  tabKill.addEventListener('click', dismissAll);
+
+  /* ── Trigger: show 5 seconds after page load ── */
+  setTimeout(openPopup, TRIGGER_MS);
+}());
+</script>
+
 <script>
 
   const ham = document.getElementById('ham'), menu = document.getElementById('mob-menu');
