@@ -834,8 +834,15 @@
      restores it on blur so the rest of the page stays pinch-zoomable */
   var vpMeta = document.querySelector('meta[name=viewport]');
   var vpOriginal = vpMeta ? vpMeta.content : '';
-  function lockViewport()    { if (vpMeta) vpMeta.content = vpOriginal + ', maximum-scale=1'; }
-  function restoreViewport() { if (vpMeta) vpMeta.content = vpOriginal; }
+  function lockViewport() {
+    if (vpMeta) vpMeta.content = 'width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1';
+  }
+  function restoreViewport() {
+    if (!vpMeta) return;
+    /* First snap zoom back to 1.0, then release the lock a frame later */
+    vpMeta.content = 'width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1';
+    setTimeout(function () { vpMeta.content = vpOriginal; }, 300);
+  }
 
   /* ── Element refs ── */
   var overlay = document.getElementById('p7dm');
@@ -855,8 +862,9 @@
   var saveHint  = document.getElementById('p7dm-save-hint');
   var codeBox   = document.getElementById('p7dm-code-box');
 
+  /* Lock zoom the moment the popup opens, not just on input focus —
+     Android can zoom before focus fires, so we need to be earlier */
   emailIn.addEventListener('focus', lockViewport);
-  emailIn.addEventListener('blur',  restoreViewport);
 
   /* Inject Mailchimp config into form */
   form.action = MC_ACTION;
@@ -875,6 +883,7 @@
 
   /* ── Open / collapse / dismiss ── */
   function openPopup() {
+    lockViewport();
     /* Lock height to current viewport so Android soft keyboard can't reflow the popup */
     overlay.style.height = window.innerHeight + 'px';
     hide(tab);
