@@ -883,11 +883,13 @@
   }
 
   function collapseToTab() {
+    restoreViewport();
     overlay.classList.remove('popup-7dm-active');
     setTimeout(function () { overlay.style.height = ''; hide(overlay); show(tab); }, 440);
   }
 
   function dismissAll() {
+    restoreViewport();
     overlay.classList.remove('popup-7dm-active');
     setTimeout(function () { overlay.style.height = ''; hide(overlay); }, 440);
     hide(tab);
