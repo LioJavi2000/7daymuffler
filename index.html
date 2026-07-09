@@ -432,17 +432,14 @@
 ─────────────────────────────────────────────────────────── -->
 <style>
 /* ── Overlay — explicit 100vw/100vh so it never depends on document size ── */
+/* Overlay = full-screen backdrop */
 .popup-7dm-overlay {
   position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 110px;
-  box-sizing: border-box;
-  overflow: hidden;
   z-index: 9999;
   opacity: 0; pointer-events: none;
   touch-action: none;
@@ -451,12 +448,26 @@
 .popup-7dm-overlay.popup-7dm-active { opacity: 1; pointer-events: all; }
 .popup-7dm-gone { display: none !important; }
 
-/* Background — explicit width/height so it's always viewport-sized, never document-sized */
+/* Panel = the actual card that holds all content */
+.popup-7dm-panel {
+  position: relative;
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 110px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Background — fills the panel, not the viewport */
 .popup-7dm-bg {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
   z-index: 0;
+  border-radius: inherit;
   background: radial-gradient(ellipse at 38% 28%, #F26522 0%, #9B3A0A 32%, #050508 72%);
 }
 
@@ -691,8 +702,16 @@
 
 /* ── Mobile ── */
 @media (max-width: 600px) {
-  /* Less top padding — logo is smaller so needs less clearance */
-  .popup-7dm-overlay { padding-top: 80px; overflow: hidden; overscroll-behavior: none; }
+  /* Overlay = dark scrim behind the card */
+  .popup-7dm-overlay { background: rgba(0,0,0,0.55); }
+
+  /* Panel = 9:16 card centered on screen */
+  .popup-7dm-panel {
+    width: min(100vw, calc(100vh * 9 / 16));
+    height: min(100vh, calc(100vw * 16 / 9));
+    border-radius: 16px;
+    padding-top: 80px;
+  }
 
   /* Smaller logo */
   .popup-7dm-logo img { height: 52px; }
@@ -734,6 +753,8 @@
 <!-- ── Full-screen overlay ── -->
 <div id="p7dm" class="popup-7dm-overlay popup-7dm-gone"
      role="dialog" aria-modal="true" aria-label="Exclusive discount offer from 7 Day Muffler">
+  <!-- Panel: 9:16 card on mobile, full-screen on desktop -->
+  <div class="popup-7dm-panel">
   <div class="popup-7dm-bg" aria-hidden="true"></div>
 
   <!-- X → collapses to sidebar tab -->
@@ -796,6 +817,7 @@
       Redeem your 10% off on any service — just save the card above and show it when you visit.
     </p>
   </div>
+  </div><!-- /.popup-7dm-panel -->
 </div>
 
 <!-- ── Sidebar tab — shown while popup is collapsed ── -->
