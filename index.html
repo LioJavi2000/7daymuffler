@@ -440,8 +440,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 110px;
+  box-sizing: border-box;
   z-index: 9999;
   opacity: 0; pointer-events: none;
+  touch-action: manipulation;
   transition: opacity 0.45s ease;
 }
 .popup-7dm-overlay.popup-7dm-active { opacity: 1; pointer-events: all; }
@@ -482,7 +485,6 @@
   position: relative; z-index: 5;
   width: 100%; max-width: 440px;
   padding: 0 2rem; text-align: center;
-  margin-top: 68px;
   transition: opacity 0.38s ease;
 }
 
@@ -521,6 +523,7 @@
   padding: 0.95rem 1.25rem;
   outline: none; border-radius: 0;
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  touch-action: manipulation;
   transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 .popup-7dm-email::placeholder { color: rgba(240,239,232,0.38); }
@@ -687,9 +690,41 @@
 
 /* ── Mobile ── */
 @media (max-width: 600px) {
-  .popup-7dm-logo img { height: 60px; }
-  .popup-7dm-screen { padding: 0 1.25rem; margin-top: 52px; }
-  .popup-7dm-card { width: min(280px, 82vw); }
+  /* Less top padding — logo is smaller so needs less clearance */
+  .popup-7dm-overlay { padding-top: 80px; overflow-y: auto; }
+
+  /* Smaller logo */
+  .popup-7dm-logo img { height: 52px; }
+  .popup-7dm-logo { top: 0.9rem; }
+  .popup-7dm-x    { top: 0.9rem; right: 0.9rem; width: 36px; height: 36px; font-size: 0.85rem; }
+
+  /* Screen padding */
+  .popup-7dm-screen { padding: 0 1.1rem; }
+
+  /* Screen 1 — tighter spacing */
+  .popup-7dm-headline {
+    font-size: clamp(2rem, 10vw, 2.6rem);
+    margin-bottom: 0.5rem;
+  }
+  .popup-7dm-sub {
+    font-size: 0.85rem;
+    margin-bottom: 1.1rem;
+    line-height: 1.5;
+  }
+  .popup-7dm-email { padding: 0.8rem 1rem; font-size: 16px; }
+  .popup-7dm-btn   { padding: 0.85rem 1.5rem; font-size: 0.82rem; margin-bottom: 0.6rem; touch-action: manipulation; }
+  .popup-7dm-legal { font-size: 0.58rem; }
+
+  /* Screen 2 — scratch card */
+  .popup-7dm-scratch-head {
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+    margin-bottom: 0.75rem;
+  }
+  .popup-7dm-card  { width: min(260px, 86vw); height: 100px; margin-bottom: 1rem; }
+  .popup-7dm-code-inner { font-size: clamp(2.4rem, 11vw, 3.2rem); }
+
+  .popup-7dm-save-hint { font-size: 0.82rem; margin-bottom: 0.75rem; }
+  .popup-7dm-redeem    { font-size: 0.9rem; padding: 0.6rem 0.9rem; }
 }
 </style>
 
@@ -829,6 +864,8 @@
 
   /* ── Open / collapse / dismiss ── */
   function openPopup() {
+    /* Lock height to current viewport so Android soft keyboard can't reflow the popup */
+    overlay.style.height = window.innerHeight + 'px';
     hide(tab);
     show(overlay);
     requestAnimationFrame(function () { overlay.classList.add('popup-7dm-active'); });
@@ -836,12 +873,12 @@
 
   function collapseToTab() {
     overlay.classList.remove('popup-7dm-active');
-    setTimeout(function () { hide(overlay); show(tab); }, 440);
+    setTimeout(function () { overlay.style.height = ''; hide(overlay); show(tab); }, 440);
   }
 
   function dismissAll() {
     overlay.classList.remove('popup-7dm-active');
-    setTimeout(function () { hide(overlay); }, 440);
+    setTimeout(function () { overlay.style.height = ''; hide(overlay); }, 440);
     hide(tab);
   }
 
