@@ -518,7 +518,7 @@
   position: relative; overflow: hidden;
   width: 100%;
   display: inline-flex; align-items: center; justify-content: center;
-  background: #B84500; color: #fff;
+  background: #CC5500; color: #fff;
   font-family: 'Oswald', sans-serif; font-weight: 600;
   font-size: 1.2rem; letter-spacing: 0.16em; text-transform: uppercase;
   padding: 1rem 2rem; border: none; border-radius: 8px; cursor: pointer;
@@ -589,7 +589,7 @@
   position: relative; overflow: hidden;
   width: 100%;
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-  background: #B84500; color: #fff;
+  background: #CC5500; color: #fff;
   font-family: 'Oswald', sans-serif; font-weight: 600;
   font-size: 1.1rem; letter-spacing: 0.14em; text-transform: uppercase;
   padding: 1rem 2rem; border: none; border-radius: 8px; cursor: pointer;
@@ -623,9 +623,10 @@
 
 /* ══ SCREEN 2 — Email capture headline ══ */
 .popup-7dm-email-head {
-  font-family: 'Bebas Neue', cursive;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
   font-size: clamp(3.2rem, 11vw, 5.2rem);
-  color: #fff; letter-spacing: -0.01em; line-height: 0.9;
+  color: #fff; letter-spacing: 0.02em; line-height: 0.95;
   margin-bottom: 1rem;
 }
 .popup-7dm-email-sub {
@@ -706,13 +707,13 @@
   font-family: 'Bebas Neue', cursive;
   font-size: clamp(1.8rem, 6vw, 2.6rem); letter-spacing: 0.04em;
   color: #fff; margin: 0.25rem auto 1rem;
-  font-weight: 400; text-shadow: 0 2px 12px rgba(0,0,0,0.3);
-  animation: popup7dmPulseHint 1.8s ease-in-out infinite;
+  font-weight: 400;
+  animation: popup7dmGlowHint 2.2s ease-in-out infinite;
   transition: opacity 0.35s ease;
 }
-@keyframes popup7dmPulseHint {
-  0%,100% { opacity: 0.55; }
-  50%      { opacity: 1; }
+@keyframes popup7dmGlowHint {
+  0%,100% { text-shadow: 0 0 8px rgba(255,255,255,0.25), 0 2px 12px rgba(0,0,0,0.2); }
+  50%      { text-shadow: 0 0 18px rgba(255,255,255,0.9), 0 0 38px rgba(255,180,80,0.55), 0 0 60px rgba(242,101,34,0.35); }
 }
 /* Code box becomes tappable after reveal */
 .popup-7dm-code.popup-7dm-tappable {
@@ -806,7 +807,7 @@
 
     <div class="popup-7dm-card">
       <div class="popup-7dm-code" aria-label="Scratch to reveal discount code">
-        <span class="popup-7dm-code-inner" style="font-family:'Bebas Neue',cursive;font-size:clamp(2rem,8vw,3rem);letter-spacing:0.04em;line-height:1.1;background:none;-webkit-text-fill-color:#fff;color:#fff;filter:none;animation:none;">You've Got<br>10% Off!</span>
+        <span class="popup-7dm-code-inner" style="font-family:'Oswald',sans-serif;font-weight:400;font-size:clamp(2rem,8vw,3rem);letter-spacing:0.05em;line-height:1.1;background:none;-webkit-text-fill-color:#fff;color:#fff;filter:none;animation:none;">You've Got<br>10% Off!</span>
       </div>
       <canvas id="p7dm-canvas" class="popup-7dm-canvas"
               width="280" height="112"
