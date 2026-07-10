@@ -822,11 +822,6 @@
     <h2 class="popup-7dm-email-head">You've Got 10% Off!</h2>
 
     <form id="p7dm-form" method="POST" target="p7dm_mc" novalidate>
-      <input type="hidden" name="u"  id="p7dm-u"  value="">
-      <input type="hidden" name="id" id="p7dm-id" value="">
-      <input type="text" id="p7dm-hp" tabindex="-1" value=""
-             style="position:absolute;left:-5000px;top:-5000px;" aria-hidden="true">
-
       <div class="popup-7dm-field">
         <input type="email" name="EMAIL" id="p7dm-email" class="popup-7dm-email"
                placeholder="Your email address" autocomplete="email">
@@ -871,9 +866,7 @@
      Mailchimp → Audience → Signup Forms → Embedded Forms
      Copy the <form action="..."> URL plus the u= and id= hidden inputs.
   ═══════════════════════════════════════════════════════════ */
-  var MC_ACTION = 'PASTE_ACTION_URL_HERE';
-  var MC_U      = 'PASTE_U_PARAM_HERE';
-  var MC_ID     = 'PASTE_LIST_ID_HERE';
+  var FORM_ACTION = 'https://script.google.com/macros/s/AKfycbzGhRWNHwGbOPEK3yWa0zPkto1angKgu2r7F2UAFhxnA_4d8xLZHfZYEkoVasMHNZo9/exec';
 
   /* Discount code displayed on screen 2 — one-line change to rotate */
   var DISCOUNT_CODE = 'SAVE10';
@@ -923,11 +916,7 @@
 
   emailIn.addEventListener('focus', lockViewport);
 
-  /* Inject Mailchimp config into form */
-  form.action = MC_ACTION;
-  document.getElementById('p7dm-u').value  = MC_U;
-  document.getElementById('p7dm-id').value = MC_ID;
-  document.getElementById('p7dm-hp').name  = 'b_' + MC_U + '_' + MC_ID;
+  form.action = FORM_ACTION;
 
   /* Move popup elements to <html> so the body's CSS animation transform
      (pageEnter: translateY 5px→none) cannot break position:fixed */
