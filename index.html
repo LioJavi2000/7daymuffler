@@ -768,17 +768,13 @@
 
     <div class="popup-7dm-card">
       <div class="popup-7dm-code" aria-label="Scratch to reveal discount code">
-        <span class="popup-7dm-code-inner">SAVE10</span>
+        <span class="popup-7dm-code-inner" style="font-size:clamp(1.6rem,6.5vw,2.4rem);letter-spacing:0.06em;line-height:1.15;">YOU'VE GOT<br>10% OFF!</span>
       </div>
       <canvas id="p7dm-canvas" class="popup-7dm-canvas"
               width="280" height="112"
               aria-label="Scratch here to reveal your discount code"></canvas>
     </div>
 
-    <!-- Shown after scratch -->
-    <p class="popup-7dm-prize-reveal popup-7dm-gone" id="p7dm-prize">
-      You've Got 10% Off!
-    </p>
     <button class="popup-7dm-claim-btn popup-7dm-gone" id="p7dm-claim">
       Claim
     </button>
@@ -884,7 +880,6 @@
   var tab       = document.getElementById('p7dm-tab');
   var tabOpen   = document.getElementById('p7dm-tab-open');
   var tabKill   = document.getElementById('p7dm-tab-kill');
-  var prizeEl   = document.getElementById('p7dm-prize');
   var claimBtn  = document.getElementById('p7dm-claim');
   var redeemP   = document.getElementById('p7dm-redeem');
   var saveHint  = document.getElementById('p7dm-save-hint');
@@ -1038,16 +1033,11 @@
       canvas.style.opacity = '0';
       setTimeout(function () {
         canvas.style.display = 'none';
-        /* Show prize text + CLAIM button */
-        prizeEl.style.opacity = '0';
-        show(prizeEl);
         claimBtn.style.opacity = '0';
         show(claimBtn);
         requestAnimationFrame(function () {
           requestAnimationFrame(function () {
-            prizeEl.style.transition  = 'opacity 0.4s ease';
             claimBtn.style.transition = 'opacity 0.4s ease';
-            prizeEl.style.opacity  = '1';
             claimBtn.style.opacity = '1';
           });
         });
