@@ -515,18 +515,38 @@
 }
 /* CLAIM button (appears after scratch) */
 .popup-7dm-claim-btn {
+  position: relative; overflow: hidden;
   width: 100%;
   display: inline-flex; align-items: center; justify-content: center;
   background: #1A0800; color: #fff;
   font-family: 'Oswald', sans-serif; font-weight: 600;
   font-size: 1.2rem; letter-spacing: 0.16em; text-transform: uppercase;
-  padding: 1rem 2rem; border: none; border-radius: 4px; cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-  transition: background 0.18s ease, transform 0.15s ease;
+  padding: 1rem 2rem; border: none; border-radius: 8px; cursor: pointer;
+  box-shadow:
+    0 0 0 1px rgba(242,101,34,0.45),
+    0 0 18px rgba(242,101,34,0.35),
+    0 0 40px rgba(242,101,34,0.15),
+    0 4px 20px rgba(0,0,0,0.45);
+  transition: box-shadow 0.28s ease, transform 0.15s ease;
   touch-action: manipulation;
 }
-.popup-7dm-claim-btn:hover  { background: #3D1500; transform: translateY(-2px); }
-.popup-7dm-claim-btn:active { transform: translateY(0); }
+.popup-7dm-claim-btn::before {
+  content: '';
+  position: absolute; top: 0; left: -100%; width: 55%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.55s ease;
+  pointer-events: none;
+}
+.popup-7dm-claim-btn:hover {
+  box-shadow:
+    0 0 0 1px rgba(242,101,34,0.7),
+    0 0 28px rgba(242,101,34,0.55),
+    0 0 60px rgba(242,101,34,0.28),
+    0 6px 30px rgba(0,0,0,0.5);
+}
+.popup-7dm-claim-btn:hover::before { left: 150%; }
+.popup-7dm-claim-btn:active { transform: scale(0.97); }
 
 /* Glowing input — adapted from 21st.dev "Glowing Input":
    radial orange glow emanates from field edges on focus */
@@ -564,22 +584,41 @@
   text-align: left; margin-bottom: 0.5rem;
 }
 
-/* Glow button — adapted from 21st.dev "Glow Button":
-   radial box-shadow bloom + sliding sheen on hover */
+/* Continue button — same glow treatment as Claim */
 .popup-7dm-btn {
+  position: relative; overflow: hidden;
   width: 100%;
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
   background: #1A0800; color: #fff;
   font-family: 'Oswald', sans-serif; font-weight: 600;
   font-size: 1.1rem; letter-spacing: 0.14em; text-transform: uppercase;
-  padding: 1rem 2rem; border: none; border-radius: 4px; cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.22);
-  transition: background 0.18s ease, transform 0.15s ease;
+  padding: 1rem 2rem; border: none; border-radius: 8px; cursor: pointer;
+  box-shadow:
+    0 0 0 1px rgba(242,101,34,0.45),
+    0 0 18px rgba(242,101,34,0.35),
+    0 0 40px rgba(242,101,34,0.15),
+    0 4px 20px rgba(0,0,0,0.45);
+  transition: box-shadow 0.28s ease, transform 0.15s ease;
   margin-bottom: 0.875rem;
   touch-action: manipulation;
 }
-.popup-7dm-btn:hover  { background: #3D1500; transform: translateY(-2px); }
-.popup-7dm-btn:active { transform: translateY(0); }
+.popup-7dm-btn::before {
+  content: '';
+  position: absolute; top: 0; left: -100%; width: 55%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.55s ease;
+  pointer-events: none;
+}
+.popup-7dm-btn:hover {
+  box-shadow:
+    0 0 0 1px rgba(242,101,34,0.7),
+    0 0 28px rgba(242,101,34,0.55),
+    0 0 60px rgba(242,101,34,0.28),
+    0 6px 30px rgba(0,0,0,0.5);
+}
+.popup-7dm-btn:hover::before { left: 150%; }
+.popup-7dm-btn:active { transform: scale(0.97); }
 .popup-7dm-btn:focus-visible { outline: 2px solid #F26522; outline-offset: 3px; }
 
 /* ══ SCREEN 2 — Email capture headline ══ */
@@ -622,7 +661,7 @@
 }
 /* Gold scratch-card container */
 .popup-7dm-card {
-  position: relative; width: 280px; height: 112px;
+  position: relative; width: 340px; height: 140px;
   margin: 0 auto 1.5rem; border-radius: 8px; overflow: hidden;
   box-shadow: 0 0 40px rgba(242,101,34,0.3), 0 8px 32px rgba(0,0,0,0.5);
 }
@@ -727,7 +766,7 @@
   /* Screen 1 — scratch */
   .popup-7dm-headline   { font-size: clamp(2.6rem, 12vw, 3.4rem); margin-bottom: 0.3rem; }
   .popup-7dm-sub        { font-size: 1.05rem; margin-bottom: 1rem; }
-  .popup-7dm-card       { width: min(260px, 86vw); height: 100px; margin-bottom: 0.9rem; }
+  .popup-7dm-card       { width: min(310px, 92vw); height: 124px; margin-bottom: 0.9rem; }
   .popup-7dm-code-inner { font-size: clamp(2.4rem, 11vw, 3.2rem); }
   .popup-7dm-claim-btn  { padding: 0.85rem 1.5rem; font-size: 1.05rem; }
 
