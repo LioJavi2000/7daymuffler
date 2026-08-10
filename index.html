@@ -978,6 +978,9 @@
     }, 380);
   }
 
+  /* ── Wire tap-to-save on Screen 3 code box (at init, not deferred) ── */
+  wireCodeBox();
+
   /* ── Form submit → Screen 3 ── */
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -989,7 +992,7 @@
     errEl.textContent = '';
     iframe.addEventListener('load', function onLoad() {
       iframe.removeEventListener('load', onLoad);
-      goScreen(s2, s3, wireCodeBox);
+      goScreen(s2, s3, null);
     }, { once: true });
     form.submit();
   });
@@ -1074,73 +1077,6 @@
       goScreen(s1, s2, null);
     });
 
-    /* Generate a branded card PNG and download it */
-    function saveCodeCard(code) {
-      var W = 800, H = 420;
-      var c = document.createElement('canvas');
-      c.width = W; c.height = H;
-      var cx = c.getContext('2d');
-
-      /* Dark background */
-      cx.fillStyle = '#0D0F1A';
-      cx.fillRect(0, 0, W, H);
-
-      /* Orange accent bar at top */
-      var bar = cx.createLinearGradient(0, 0, W, 0);
-      bar.addColorStop(0, '#F26522');
-      bar.addColorStop(1, '#FFD166');
-      cx.fillStyle = bar;
-      cx.fillRect(0, 0, W, 8);
-
-      /* Shop name */
-      cx.fillStyle = 'rgba(255,255,255,0.55)';
-      cx.font = '500 22px Oswald, Arial, sans-serif';
-      cx.textAlign = 'center';
-      cx.fillText('7 DAY MUFFLER & AUTO REPAIR', W / 2, 58);
-
-      /* Code label */
-      cx.fillStyle = 'rgba(255,255,255,0.45)';
-      cx.font = '400 16px Oswald, Arial, sans-serif';
-      cx.letterSpacing = '0.18em';
-      cx.fillText('YOUR DISCOUNT CODE', W / 2, 110);
-
-      /* Big gradient code text */
-      var codeGrad = cx.createLinearGradient(0, 120, W, 240);
-      codeGrad.addColorStop(0, '#FF8C42');
-      codeGrad.addColorStop(0.45, '#FFD166');
-      codeGrad.addColorStop(1, '#F26522');
-      cx.fillStyle = codeGrad;
-      cx.font = 'bold 130px "Bebas Neue", Impact, Arial Black, sans-serif';
-      cx.fillText(code, W / 2, 255);
-
-      /* Divider */
-      cx.strokeStyle = 'rgba(242,101,34,0.35)';
-      cx.lineWidth = 1;
-      cx.beginPath(); cx.moveTo(60, 285); cx.lineTo(W - 60, 285); cx.stroke();
-
-      /* Redeem line */
-      cx.fillStyle = 'rgba(255,255,255,0.75)';
-      cx.font = '400 20px "DM Sans", Arial, sans-serif';
-      cx.fillText('Show this at 7 Day Muffler — 10% off any service', W / 2, 328);
-
-      /* Address/tagline */
-      cx.fillStyle = 'rgba(255,255,255,0.35)';
-      cx.font = '400 15px "DM Sans", Arial, sans-serif';
-      cx.fillText('Stanton, CA  ·  7daymuffler.com', W / 2, 370);
-
-      /* Orange accent bar at bottom */
-      cx.fillStyle = bar;
-      cx.fillRect(0, H - 8, W, 8);
-
-      /* Trigger download */
-      var link = document.createElement('a');
-      link.download = '7-day-muffler-discount-code.png';
-      link.href = c.toDataURL('image/png');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-
     function start(e)  { e.preventDefault(); drawing = true; erase(e); }
     function stop()    { drawing = false; }
 
@@ -1163,6 +1099,62 @@
       canvas.removeEventListener('touchend',   stop);
     }
     onListeners();
+  }
+
+  /* ── Generate a branded card PNG and download it ── */
+  function saveCodeCard(code) {
+    var W = 800, H = 420;
+    var c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    var cx = c.getContext('2d');
+
+    cx.fillStyle = '#0D0F1A';
+    cx.fillRect(0, 0, W, H);
+
+    var bar = cx.createLinearGradient(0, 0, W, 0);
+    bar.addColorStop(0, '#F26522');
+    bar.addColorStop(1, '#FFD166');
+    cx.fillStyle = bar;
+    cx.fillRect(0, 0, W, 8);
+
+    cx.fillStyle = 'rgba(255,255,255,0.55)';
+    cx.font = '500 22px Oswald, Arial, sans-serif';
+    cx.textAlign = 'center';
+    cx.fillText('7 DAY MUFFLER & AUTO REPAIR', W / 2, 58);
+
+    cx.fillStyle = 'rgba(255,255,255,0.45)';
+    cx.font = '400 16px Oswald, Arial, sans-serif';
+    cx.fillText('YOUR DISCOUNT CODE', W / 2, 110);
+
+    var codeGrad = cx.createLinearGradient(0, 120, W, 240);
+    codeGrad.addColorStop(0, '#FF8C42');
+    codeGrad.addColorStop(0.45, '#FFD166');
+    codeGrad.addColorStop(1, '#F26522');
+    cx.fillStyle = codeGrad;
+    cx.font = 'bold 130px "Bebas Neue", Impact, Arial Black, sans-serif';
+    cx.fillText(code, W / 2, 255);
+
+    cx.strokeStyle = 'rgba(242,101,34,0.35)';
+    cx.lineWidth = 1;
+    cx.beginPath(); cx.moveTo(60, 285); cx.lineTo(W - 60, 285); cx.stroke();
+
+    cx.fillStyle = 'rgba(255,255,255,0.75)';
+    cx.font = '400 20px "DM Sans", Arial, sans-serif';
+    cx.fillText('Show this at 7 Day Muffler — 10% off any service', W / 2, 328);
+
+    cx.fillStyle = 'rgba(255,255,255,0.35)';
+    cx.font = '400 15px "DM Sans", Arial, sans-serif';
+    cx.fillText('Stanton, CA  ·  7daymuffler.com', W / 2, 370);
+
+    cx.fillStyle = bar;
+    cx.fillRect(0, H - 8, W, 8);
+
+    var link = document.createElement('a');
+    link.download = '7-day-muffler-discount-code.png';
+    link.href = c.toDataURL('image/png');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   /* ── Wire tap-to-save on Screen 3 code box ── */
