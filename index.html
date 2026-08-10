@@ -621,6 +621,10 @@
 .popup-7dm-btn:hover::before { left: 150%; }
 .popup-7dm-btn:active { transform: scale(0.97); }
 .popup-7dm-btn:focus-visible { outline: 2px solid #F26522; outline-offset: 3px; }
+.popup-7dm-btn:disabled {
+  opacity: 0.65; cursor: default; transform: none;
+  box-shadow: 0 0 0 1px rgba(242,101,34,0.25), 0 4px 20px rgba(0,0,0,0.35);
+}
 
 /* ══ SCREEN 2 — Email capture headline ══ */
 .popup-7dm-email-head {
@@ -828,7 +832,7 @@
       </div>
       <div class="popup-7dm-err" id="p7dm-err" role="alert"></div>
 
-      <button type="submit" class="popup-7dm-btn">Continue</button>
+      <button type="submit" class="popup-7dm-btn" id="p7dm-submit">Continue</button>
       <p class="popup-7dm-legal">By submitting, you agree to receive promotional emails from 7 Day Muffler. Unsubscribe anytime.</p>
     </form>
   </div>
@@ -910,6 +914,7 @@
   var tabOpen   = document.getElementById('p7dm-tab-open');
   var tabKill   = document.getElementById('p7dm-tab-kill');
   var claimBtn  = document.getElementById('p7dm-claim');
+  var submitBtn = document.getElementById('p7dm-submit');
   var redeemP   = document.getElementById('p7dm-redeem');
   var saveHint  = document.getElementById('p7dm-save-hint');
   var codeBox   = document.getElementById('p7dm-code-box');
@@ -990,11 +995,12 @@
       return;
     }
     errEl.textContent = '';
-    iframe.addEventListener('load', function onLoad() {
-      iframe.removeEventListener('load', onLoad);
-      goScreen(s2, s3, null);
-    }, { once: true });
+    /* Immediately lock the button so double-taps do nothing */
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    /* Submit in background; don't wait for iframe — just go to Screen 3 */
     form.submit();
+    setTimeout(function () { goScreen(s2, s3, null); }, 400);
   });
 
   /* ── Scratch-off canvas ── */
