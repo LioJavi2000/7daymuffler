@@ -809,7 +809,7 @@
 
     <div class="popup-7dm-card">
       <div class="popup-7dm-code" aria-label="Scratch to reveal discount code">
-        <span class="popup-7dm-code-inner" style="font-family:'Oswald',sans-serif;font-weight:500;font-size:clamp(2rem,8vw,3rem);letter-spacing:0.02em;line-height:0.95;background:none;-webkit-text-fill-color:#fff;color:#fff;filter:none;animation:none;">You've Got<br>10% Off!</span>
+        <span class="popup-7dm-code-inner" style="font-family:'Oswald',sans-serif;font-weight:500;font-size:clamp(2rem,8vw,3rem);letter-spacing:0.02em;line-height:0.95;background:none;-webkit-text-fill-color:#fff;color:#fff;filter:none;animation:none;">You've Got<br>20% Off!</span>
       </div>
       <canvas id="p7dm-canvas" class="popup-7dm-canvas"
               width="280" height="112"
@@ -823,7 +823,7 @@
 
   <!-- ── Screen 2: Email Capture ── -->
   <div class="popup-7dm-screen popup-7dm-gone" id="p7dm-s2">
-    <h2 class="popup-7dm-email-head">You've Got 10% Off!</h2>
+    <h2 class="popup-7dm-email-head">You've Got 20% Off!</h2>
 
     <form id="p7dm-form" method="POST" target="p7dm_mc" novalidate>
       <div class="popup-7dm-field">
@@ -844,13 +844,13 @@
     </p>
 
     <div class="popup-7dm-card">
-      <div class="popup-7dm-code popup-7dm-tappable" id="p7dm-code-box" aria-label="Discount code SAVE10 — tap to save">
-        <span class="popup-7dm-code-inner">SAVE10</span>
+      <div class="popup-7dm-code popup-7dm-tappable" id="p7dm-code-box" aria-label="Discount code SAVE20 — tap to save">
+        <span class="popup-7dm-code-inner">SAVE20</span>
       </div>
     </div>
 
     <p class="popup-7dm-redeem" id="p7dm-redeem">
-      Redeem your 10% off on any service — just save the card above and show it when you visit.
+      Redeem your 20% off on any service — just save the card above and show it when you visit.
     </p>
   </div>
 </div>
@@ -873,7 +873,7 @@
   var FORM_ACTION = 'https://script.google.com/macros/s/AKfycbzGhRWNHwGbOPEK3yWa0zPkto1angKgu2r7F2UAFhxnA_4d8xLZHfZYEkoVasMHNZo9/exec';
 
   /* Discount code displayed on screen 2 — one-line change to rotate */
-  var DISCOUNT_CODE = 'SAVE10';
+  var DISCOUNT_CODE = 'SAVE20';
 
   /* localStorage key: set to "true" after code is revealed; hides popup forever */
   var CLAIMED_KEY = '7dm_popup_claimed';
@@ -1146,7 +1146,7 @@
 
     cx.fillStyle = 'rgba(255,255,255,0.75)';
     cx.font = '400 20px "DM Sans", Arial, sans-serif';
-    cx.fillText('Show this at 7 Day Muffler — 10% off any service', W / 2, 328);
+    cx.fillText('Show this at 7 Day Muffler — 20% off any service', W / 2, 328);
 
     cx.fillStyle = 'rgba(255,255,255,0.35)';
     cx.font = '400 15px "DM Sans", Arial, sans-serif';
@@ -1156,7 +1156,7 @@
     cx.fillRect(0, H - 8, W, 8);
 
     var link = document.createElement('a');
-    link.download = '7-day-muffler-discount-code.png';
+    link.download = '7-day-muffler-20-off.png';
     link.href = c.toDataURL('image/png');
     document.body.appendChild(link);
     link.click();
